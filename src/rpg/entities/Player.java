@@ -29,24 +29,15 @@ public class Player {
         return stats.get(Stats.HP) > 0;
     }
 
-    /**
-     * Recepción de daño.
-     *
-     * @param damage daño recibido.
-     */
-    public void receiveDamage(int damage) {
-
-        int defense = stats.get(Stats.DEFENSE);
-        int finalDamage = damage - defense;
-        int hp = stats.get(Stats.HP);
-        if (finalDamage < 0) {
-            finalDamage = 0;
+    public void attack(Enemy enemy) {
+        int damage = this.stats.get(Stats.ATTACK) - enemy.getStats().get(Stats.DEFENSE);
+        if (damage > 0) {
+            enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
+            System.out.println(this.name + " attacks " + enemy.getName() + " for " + damage + " damage!");
+            System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
+        } else {
+            System.out.println(this.name + " attacks " + enemy.getName() + " but does no damage!");
         }
-        hp -= finalDamage;
-        if (hp < 0) {
-            hp = 0;
-        }
-        stats.put(Stats.HP, hp);
     }
 
     public String getName() {

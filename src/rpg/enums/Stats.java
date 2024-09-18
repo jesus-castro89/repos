@@ -2,6 +2,8 @@ package rpg.enums;
 
 /**
  * Características de los personajes.
+ *
+ * @author Fulanito
  */
 public enum Stats {
     /**
