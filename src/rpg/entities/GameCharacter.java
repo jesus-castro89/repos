@@ -4,9 +4,18 @@ import rpg.enums.Stats;
 
 import java.util.HashMap;
 
+/**
+ * Clase que representa a un personaje del juego.
+ */
 public class GameCharacter {
 
+    /**
+     * Nombre del personaje.
+     */
     protected String name;
+    /**
+     * Características del personaje.
+     */
     protected HashMap<Stats, Integer> stats;
 
     public GameCharacter(String name) {
