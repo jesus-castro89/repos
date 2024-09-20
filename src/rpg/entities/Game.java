@@ -12,7 +12,7 @@ public class Game {
 
     public Game() {
         this.player = new Player("Player");
-        this.enemy = new Enemy("Enemy");
+        this.enemy = new Enemy();
     }
 
     public void startGame() {
