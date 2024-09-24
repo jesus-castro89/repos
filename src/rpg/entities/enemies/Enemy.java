@@ -1,8 +1,7 @@
-package rpg.entities;
+package rpg.entities.enemies;
 
+import rpg.entities.GameCharacter;
 import rpg.enums.Stats;
-
-import java.util.HashMap;
 
 public class Enemy extends GameCharacter {
 

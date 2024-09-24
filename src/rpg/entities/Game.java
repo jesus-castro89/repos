@@ -1,5 +1,9 @@
 package rpg.entities;
 
+import rpg.entities.enemies.Enemy;
+import rpg.entities.enemies.goblins.RookieGoblin;
+import rpg.entities.enemies.slimes.BasicSlime;
+
 public class Game {
 
     private Player player;
@@ -12,7 +16,12 @@ public class Game {
 
     public Game() {
         this.player = new Player("Player");
-        this.enemy = new Enemy();
+        int enemyType = (int) (Math.random() * 3) + 1;
+        this.enemy = switch (enemyType) {
+            case 1 -> new RookieGoblin();
+            case 2 -> new BasicSlime();
+            default -> new Enemy();
+        };
     }
 
     public void startGame() {
