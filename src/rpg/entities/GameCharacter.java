@@ -28,6 +28,8 @@ public class GameCharacter {
         return stats.get(Stats.HP) > 0;
     }
 
+
+
     /**
      * Función que simula un ataque del personaje al enemigo e imprime un mensaje
      * en consola con el resultado del ataque. Si el daño es mayor a 0, se resta
