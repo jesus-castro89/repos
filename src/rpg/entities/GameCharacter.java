@@ -7,8 +7,7 @@ import java.util.HashMap;
 /**
  * Clase que representa a un personaje del juego.
  */
-public class GameCharacter {
-
+public abstract class GameCharacter {
     /**
      * Nombre del personaje.
      */
@@ -22,13 +21,19 @@ public class GameCharacter {
 
         this.name = name;
         this.stats = new HashMap<>();
+        initCharacter();
     }
+
+    /**
+     * Función que inicializa las características del personaje.
+     * Implementada por las clases hijas.
+     * Deberá de incluir el nombre del personaje y las características mínimas para su funcionamiento.
+     */
+    protected abstract void initCharacter();
 
     public boolean isAlive() {
         return stats.get(Stats.HP) > 0;
     }
-
-
 
     /**
      * Función que simula un ataque del personaje al enemigo e imprime un mensaje

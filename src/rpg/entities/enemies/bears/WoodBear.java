@@ -1,4 +1,4 @@
-package rpg.entities.enemies.goblins;
+package rpg.entities.enemies.bears;
 
 import rpg.entities.GameCharacter;
 import rpg.entities.enemies.Enemy;
@@ -6,27 +6,24 @@ import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.utils.Randomize;
 
-public class RookieGoblin extends Enemy {
+public class WoodBear extends Enemy {
 
-    public RookieGoblin() {
-        super("Rookie Goblin");
+    public WoodBear() {
+        super("Wood Bear");
     }
 
     @Override
     public void getLoot() {
-        System.out.println("The Rookie Goblin drops a small bag of coins.");
+        System.out.println("The Wood Bear drops a valuable bear claw.");
     }
 
-    /**
-     * Función sobrescrita que inicializa las características del Goblin.
-     */
     @Override
     protected void initCharacter() {
         this.type = EnemyType.BASIC;
-        this.stats.put(Stats.MAX_HP, 35);
-        this.stats.put(Stats.HP, 35);
-        this.stats.put(Stats.ATTACK, 6);
-        this.stats.put(Stats.DEFENSE, 2);
+        this.stats.put(Stats.MAX_HP, 50);
+        this.stats.put(Stats.HP, 50);
+        this.stats.put(Stats.ATTACK, 8);
+        this.stats.put(Stats.DEFENSE, 4);
     }
 
     @Override
@@ -34,10 +31,10 @@ public class RookieGoblin extends Enemy {
         int attack = Randomize.getRandomInt(1, 3);
         switch (attack) {
             case 1:
-                throwRock(enemy);
+                claw(enemy);
                 break;
             case 2:
-                savageBite(enemy);
+                bite(enemy);
                 break;
             default:
                 ((GameCharacter) this).attack(enemy);
@@ -45,18 +42,18 @@ public class RookieGoblin extends Enemy {
         }
     }
 
-    protected void throwRock(GameCharacter enemy) {
-        int damage = 2;
+    protected void bite(GameCharacter enemy) {
+        int damage = 5;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
-        System.out.println(this.name + " throws a rock at " + enemy.getName() + " for "
-                + damage + " damage!");
+        System.out.println(this.name + " bites " + enemy.getName() + " for " + damage + " damage!");
         System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
     }
 
-    protected void savageBite(GameCharacter enemy) {
-        int damage = 3;
+    protected void claw(GameCharacter enemy) {
+        int damage = 4;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
-        System.out.println(this.name + " bites " + enemy.getName() + " for " + damage + " damage!");
+        System.out.println(this.name + " claws " + enemy.getName() + " for "
+                + damage + " damage!");
         System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
     }
 }

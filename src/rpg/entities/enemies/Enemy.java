@@ -1,15 +1,24 @@
 package rpg.entities.enemies;
 
 import rpg.entities.GameCharacter;
-import rpg.enums.Stats;
+import rpg.enums.EnemyType;
 
-public class Enemy extends GameCharacter {
+public abstract class Enemy extends GameCharacter {
 
-    public Enemy() {
-        super("Enemy");
-        this.stats.put(Stats.MAX_HP, 30);
-        this.stats.put(Stats.HP, 30);
-        this.stats.put(Stats.ATTACK, 10);
-        this.stats.put(Stats.DEFENSE, 4);
+    protected EnemyType type;
+
+    public Enemy(String name) {
+        super(name);
+    }
+
+    /**
+     * Función que permite recuperar el botín del enemigo.
+     */
+    public abstract void getLoot();
+
+    public abstract void attack(GameCharacter enemy);
+
+    public EnemyType getType() {
+        return type;
     }
 }

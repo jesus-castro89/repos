@@ -8,8 +8,16 @@ public class Player extends GameCharacter {
 
     public Player(String name) {
         super(name);
-        this.stats.put(Stats.MAX_HP, 50);
-        this.stats.put(Stats.HP, 50);
+    }
+
+    /**
+     * Función sobrescrita que inicializa las características
+     * del personaje.
+     */
+    @Override
+    protected void initCharacter() {
+        this.stats.put(Stats.MAX_HP, 100);
+        this.stats.put(Stats.HP, 100);
         this.stats.put(Stats.ATTACK, 10);
         this.stats.put(Stats.DEFENSE, 5);
     }
