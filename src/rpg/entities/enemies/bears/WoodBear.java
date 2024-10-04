@@ -6,8 +6,14 @@ import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.utils.Randomize;
 
+/**
+ * The type Wood bear.
+ */
 public class WoodBear extends Enemy {
 
+    /**
+     * Instantiates a new Wood bear.
+     */
     public WoodBear() {
         super("Wood Bear");
     }
@@ -28,6 +34,7 @@ public class WoodBear extends Enemy {
 
     @Override
     public void attack(GameCharacter enemy) {
+
         int attack = Randomize.getRandomInt(1, 3);
         switch (attack) {
             case 1:
@@ -42,18 +49,41 @@ public class WoodBear extends Enemy {
         }
     }
 
+    /**
+     * Bite.
+     *
+     * @param enemy the enemy
+     */
     protected void bite(GameCharacter enemy) {
+
         int damage = 5;
-        enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
-        System.out.println(this.name + " bites " + enemy.getName() + " for " + damage + " damage!");
-        System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
+        String message = "";
+        String enemyName = enemy.getName();
+        int newHP = enemy.getStats().get(Stats.HP) - damage;
+        enemy.getStats().put(Stats.HP, newHP);
+        message += String.format("""
+                %s bites %s for %d damage!
+                %s has %d HP left.
+                """, this.name, enemyName, damage, enemyName, newHP);
+        System.out.println(message);
     }
 
+    /**
+     * Claw.
+     *
+     * @param enemy the enemy
+     */
     protected void claw(GameCharacter enemy) {
+
         int damage = 4;
-        enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
-        System.out.println(this.name + " claws " + enemy.getName() + " for "
-                + damage + " damage!");
-        System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
+        String message = "";
+        String enemyName = enemy.getName();
+        int newHP = enemy.getStats().get(Stats.HP) - damage;
+        enemy.getStats().put(Stats.HP, newHP);
+        message += String.format("""
+                %s claws %s for %d damage!
+                %s has %d HP left.
+                """, this.name, enemyName, damage, enemyName, newHP);
+        System.out.println(message);
     }
 }

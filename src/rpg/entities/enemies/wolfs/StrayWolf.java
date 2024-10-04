@@ -6,8 +6,14 @@ import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.utils.Randomize;
 
+/**
+ * The type Stray wolf.
+ */
 public class StrayWolf extends Enemy {
 
+    /**
+     * Instantiates a new Stray wolf.
+     */
     public StrayWolf() {
         super("Stray Wolf");
     }
@@ -26,6 +32,11 @@ public class StrayWolf extends Enemy {
         this.stats.put(Stats.DEFENSE, 2);
     }
 
+    /**
+     * Bite.
+     *
+     * @param enemy the enemy
+     */
     protected void bite(GameCharacter enemy) {
         int damage = 4;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
@@ -33,6 +44,11 @@ public class StrayWolf extends Enemy {
         System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
     }
 
+    /**
+     * Claw.
+     *
+     * @param enemy the enemy
+     */
     protected void claw(GameCharacter enemy) {
         int damage = 3;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
@@ -41,6 +57,11 @@ public class StrayWolf extends Enemy {
         System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
     }
 
+    /**
+     * Slash.
+     *
+     * @param enemy the enemy
+     */
     protected void slash(GameCharacter enemy) {
         int damage = 5;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);

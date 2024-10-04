@@ -1,5 +1,8 @@
 package rpg.enums;
 
+/**
+ * The enum Enemy type.
+ */
 public enum EnemyType {
 
     /**

@@ -5,16 +5,33 @@ import rpg.entities.enemies.goblins.RookieGoblin;
 import rpg.entities.enemies.slimes.BasicSlime;
 import rpg.utils.Randomize;
 
+/**
+ * The type Game.
+ */
 public class Game {
 
+    /**
+     * The Player.
+     */
     private Player player;
+    /**
+     * The Enemy.
+     */
     private Enemy enemy;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         Game game = new Game();
         game.startGame();
     }
 
+    /**
+     * Instantiates a new Game.
+     */
     public Game() {
         this.player = new Player("Player");
         int enemyType = Randomize.getRandomInt(1, 3);
@@ -24,6 +41,9 @@ public class Game {
         };
     }
 
+    /**
+     * Start game.
+     */
     public void startGame() {
 
         while (player.isAlive() && enemy.isAlive()) {

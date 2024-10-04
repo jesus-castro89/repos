@@ -4,8 +4,16 @@ import rpg.enums.Stats;
 
 import java.util.HashMap;
 
+/**
+ * The type Player.
+ */
 public class Player extends GameCharacter {
 
+    /**
+     * Instantiates a new Player.
+     *
+     * @param name the name
+     */
     public Player(String name) {
         super(name);
     }

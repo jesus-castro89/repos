@@ -17,6 +17,11 @@ public abstract class GameCharacter {
      */
     protected HashMap<Stats, Integer> stats;
 
+    /**
+     * Instantiates a new Game character.
+     *
+     * @param name the name
+     */
     public GameCharacter(String name) {
 
         this.name = name;
@@ -31,6 +36,11 @@ public abstract class GameCharacter {
      */
     protected abstract void initCharacter();
 
+    /**
+     * Is alive boolean.
+     *
+     * @return the boolean
+     */
     public boolean isAlive() {
         return stats.get(Stats.HP) > 0;
     }
@@ -67,14 +77,33 @@ public abstract class GameCharacter {
     }
 
     /**
+     * Función que reduce la vida del enemigo y actualiza sus características.
+     *
+     * @param enemy  el enemigo a atacar.
+     * @param damage el daño a realizar.
+     * @return la nueva vida del enemigo.
+     */
+    protected int reduceHP(GameCharacter enemy, int damage) {
+
+        int newHP = enemy.getStats().get(Stats.HP) - damage;
+        enemy.getStats().put(Stats.HP, newHP);
+        return newHP;
+    }
+
+    /**
      * Devuelve el nombre del personaje con un epíteto.
      *
      * @return el nombre del personaje con el epíteto.
      */
     public String getName() {
-        return String.format("%s el Intrépido", name);
+        return String.format("%s", name);
     }
 
+    /**
+     * Gets stats.
+     *
+     * @return the stats
+     */
     public HashMap<Stats, Integer> getStats() {
         return stats;
     }

@@ -6,8 +6,14 @@ import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.utils.Randomize;
 
+/**
+ * The type Basic slime.
+ */
 public class BasicSlime extends Enemy {
 
+    /**
+     * Instantiates a new Basic slime.
+     */
     public BasicSlime() {
         super("Basic Slime");
     }
