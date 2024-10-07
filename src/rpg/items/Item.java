@@ -38,4 +38,20 @@ public abstract class Item {
      * Deberá ser implementada y sobreescrita por las clases hijas.
      */
     protected abstract void initItem();
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public ItemType getType() {
+        return type;
+    }
 }

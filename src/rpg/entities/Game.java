@@ -1,8 +1,10 @@
 package rpg.entities;
 
 import rpg.entities.enemies.Enemy;
+import rpg.entities.enemies.bears.WoodBear;
 import rpg.entities.enemies.goblins.RookieGoblin;
 import rpg.entities.enemies.slimes.BasicSlime;
+import rpg.entities.enemies.wolfs.StrayWolf;
 import rpg.utils.Randomize;
 
 /**
@@ -34,9 +36,11 @@ public class Game {
      */
     public Game() {
         this.player = new Player("Player");
-        int enemyType = Randomize.getRandomInt(1, 3);
+        int enemyType = Randomize.getRandomInt(1, 4);
         this.enemy = switch (enemyType) {
             case 1 -> new RookieGoblin();
+            case 2 -> new WoodBear();
+            case 3 -> new StrayWolf();
             default -> new BasicSlime();
         };
     }

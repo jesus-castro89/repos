@@ -1,8 +1,13 @@
 package rpg.inventory;
 
+import rpg.entities.Player;
 import rpg.items.Item;
 import rpg.items.armors.helmet.IronHelmet;
 import rpg.items.armors.helmet.WoodHelmet;
+import rpg.items.miscs.WolfPelt;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * The type Inventory test.
@@ -14,26 +19,19 @@ public class InventoryTest {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        Inventory inventory = new Inventory(10);
-        inventory.addItem(new WoodHelmet());
-        inventory.addItem(new IronHelmet());
-        for (Item item : inventory.getArmors()) {
-            switch (item.getClass().getSimpleName()) {
-                case "WoodHelmet":
-                    System.out.println("Wood helmet found");
-                    ((WoodHelmet) item).protect();
-                    break;
-                case "IronHelmet":
-                    System.out.println("Iron helmet found");
-                    ((IronHelmet) item).protect();
-                    break;
-                default:
-                    System.out.println("Unknown item found");
-                    break;
-            }
-        }
-        inventory.getItemCount();
-        inventory.isFull();
-        System.out.println("Investory Test Completed");
+
+        UIManager.put("OptionPane.messageFont",
+                new Font("Arial", Font.BOLD, 18));
+        Player player = new Player("Player 1");
+        Item ironHelmet = new IronHelmet();
+        Item woodHelmet = new WoodHelmet();
+        player.addItemToInventory(ironHelmet);
+        player.addItemToInventory(woodHelmet);
+        player.addItemToInventory(new WolfPelt());
+        player.showInventory();
+        player.addItemToInventory(new WolfPelt());
+        player.showInventory();
+        player.addItemToInventory(new WoodHelmet());
+        player.showInventory();
     }
 }

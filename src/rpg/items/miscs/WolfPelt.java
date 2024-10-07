@@ -15,6 +15,7 @@ public class WolfPelt extends Misc {
         this.price = 50;
         this.consumable = false;
         this.stackable = true;
+        this.quantity = 1;
     }
 
     @Override

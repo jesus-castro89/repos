@@ -23,11 +23,9 @@ public class Inventory {
 
     /**
      * Instantiates a new Inventory.
-     *
-     * @param capacity the capacity
      */
-    public Inventory(int capacity) {
-        this.capacity = capacity;
+    public Inventory() {
+        this.capacity = 15;
         items = new ArrayList<>();
     }
 
@@ -57,7 +55,7 @@ public class Inventory {
     public void removeItem(Item item) {
         try {
             items.remove(item);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Item not found");
         }
     }
@@ -67,15 +65,8 @@ public class Inventory {
      *
      * @param index the index
      */
-    public Object getItem(int index) {
-        try {
-            if (index < 0 || index >= items.size())
-                throw new IndexOutOfBoundsException();
-            return items.get(index);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Index out of bounds");
-            return null;
-        }
+    public Item getItem(int index) {
+        return items.get(index);
     }
 
     /**
