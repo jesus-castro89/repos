@@ -1,6 +1,7 @@
 package rpg.entities;
 
 import rpg.enums.Stats;
+import rpg.exceptions.EnemyDeathException;
 
 import java.util.HashMap;
 
@@ -61,12 +62,20 @@ public abstract class GameCharacter {
         int newHP = enemy.getStats().get(Stats.HP);
         if (damage > 0) {
 
-            newHP = enemy.getStats().get(Stats.HP) - damage;
-            enemy.getStats().put(Stats.HP, newHP);
-            message += String.format("""
-                    %s attacks %s for %d damage!
-                    %s has %d HP left.
-                    """, this.name, enemyName, damage, enemyName, newHP);
+            try {
+                newHP = reduceHP(enemy, damage);
+                message += String.format("""
+                        %s attacks %s for %d damage!
+                        %s has %d HP left.
+                        """, this.name, enemyName, damage, enemyName, newHP);
+            } catch (EnemyDeathException e) {
+                enemy.getStats().put(Stats.HP, 0);
+                message += String.format("""
+                        %s attacks %s for %d damage!
+                        %s has 0 HP left.
+                        %s has died.
+                        """, this.name, enemyName, damage, enemyName, enemyName);
+            }
         } else {
             message += String.format("""
                     %s attacks %s but does no damage!
@@ -83,10 +92,12 @@ public abstract class GameCharacter {
      * @param damage el daño a realizar.
      * @return la nueva vida del enemigo.
      */
-    protected int reduceHP(GameCharacter enemy, int damage) {
+    protected final int reduceHP(GameCharacter enemy, int damage) throws EnemyDeathException {
 
         int newHP = enemy.getStats().get(Stats.HP) - damage;
         enemy.getStats().put(Stats.HP, newHP);
+        if (!enemy.isAlive())
+            throw new EnemyDeathException();
         return newHP;
     }
 
@@ -95,7 +106,8 @@ public abstract class GameCharacter {
      *
      * @return el nombre del personaje con el epíteto.
      */
-    public String getName() {
+    public final String getName() {
+
         return String.format("%s", name);
     }
 
@@ -104,7 +116,8 @@ public abstract class GameCharacter {
      *
      * @return the stats
      */
-    public HashMap<Stats, Integer> getStats() {
+    public final HashMap<Stats, Integer> getStats() {
+
         return stats;
     }
 }

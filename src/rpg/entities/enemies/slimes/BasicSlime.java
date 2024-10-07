@@ -4,6 +4,7 @@ import rpg.entities.GameCharacter;
 import rpg.entities.enemies.Enemy;
 import rpg.enums.EnemyType;
 import rpg.enums.Stats;
+import rpg.exceptions.EnemyDeathException;
 import rpg.utils.Randomize;
 
 /**
@@ -56,12 +57,11 @@ public class BasicSlime extends Enemy {
      *
      * @param enemy el enemigo a atacar.
      */
-    protected void trhowSlime(GameCharacter enemy) {
+    protected void trhowSlime(GameCharacter enemy) throws EnemyDeathException {
 
         String enemyName = enemy.getName();
-        int damage = (int) (this.stats.get(Stats.ATTACK) * 0.8);
-        enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
-        int newHP = enemy.getStats().get(Stats.HP);
+        int damage = this.stats.get(Stats.ATTACK) * 8 / 10;
+        int newHP = reduceHP(enemy, this.stats.get(Stats.ATTACK) * 8 / 10);
         System.out.printf("""
                 %s throws slime at %s for %d damage!
                 %s has %d HP left.
@@ -78,6 +78,17 @@ public class BasicSlime extends Enemy {
     public void attack(GameCharacter enemy) {
 
         if (Randomize.getRandomBoolean()) splash(enemy);
-        else trhowSlime(enemy);
+        else {
+            try {
+                trhowSlime(enemy);
+            } catch (EnemyDeathException e) {
+                enemy.getStats().put(Stats.HP, 0);
+                System.out.printf("""
+                        %s throws slime at you for %d damage!
+                        You have 0 HP left.
+                        You have died.
+                        """, this.name, (this.stats.get(Stats.ATTACK) * 8 / 10));
+            }
+        }
     }
 }

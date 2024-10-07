@@ -30,4 +30,28 @@ public enum Stats {
      * Defensa.
      */
     DEFENSE,
+    /**
+     * Velocidad.
+     */
+    SPEED,
+    /**
+     * Suerte.
+     */
+    LUCK,
+    /**
+     * Precisión.
+     */
+    ACCURACY,
+    /**
+     * Evasión.
+     */
+    EVASION,
+    /**
+     * Destreza
+     */
+    DEXTERITY,
+    /**
+     * Inteligencia.
+     */
+    INTELLIGENCE,
 }

@@ -1,5 +1,6 @@
 package rpg.inventory;
 
+import rpg.exceptions.InventoryFullException;
 import rpg.items.Item;
 import rpg.items.armors.Armor;
 import rpg.items.miscs.Misc;
@@ -36,10 +37,15 @@ public class Inventory {
      * @param item the item
      */
     public void addItem(Item item) {
-        if (items.size() < capacity) {
-            items.add(item);
-        } else {
-            System.out.println("Inventory is full");
+
+        try {
+
+            if (!isFull())
+                items.add(item);
+            else
+                throw new InventoryFullException();
+        } catch (InventoryFullException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -49,7 +55,11 @@ public class Inventory {
      * @param item the item
      */
     public void removeItem(Item item) {
-        items.remove(item);
+        try {
+            items.remove(item);
+        }catch (Exception e){
+            System.out.println("Item not found");
+        }
     }
 
     /**
@@ -57,15 +67,22 @@ public class Inventory {
      *
      * @param index the index
      */
-    public void getItem(int index) {
-        items.get(index);
+    public Object getItem(int index) {
+        try {
+            if (index < 0 || index >= items.size())
+                throw new IndexOutOfBoundsException();
+            return items.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index out of bounds");
+            return null;
+        }
     }
 
     /**
      * Gets item count.
      */
-    public void getItemCount() {
-        items.size();
+    public int getItemCount() {
+        return items.size();
     }
 
     /**
@@ -74,6 +91,7 @@ public class Inventory {
      * @return the boolean
      */
     public boolean isFull() {
+
         return items.size() == capacity;
     }
 

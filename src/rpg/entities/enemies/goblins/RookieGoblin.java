@@ -4,6 +4,7 @@ import rpg.entities.GameCharacter;
 import rpg.entities.enemies.Enemy;
 import rpg.enums.EnemyType;
 import rpg.enums.Stats;
+import rpg.exceptions.EnemyDeathException;
 import rpg.utils.Randomize;
 
 /**
@@ -58,10 +59,28 @@ public class RookieGoblin extends Enemy {
         // Se elige el ataque a realizar
         switch (attack) {
             case 1:
-                throwRock(enemy);
+                try {
+                    throwRock(enemy);
+                } catch (EnemyDeathException e) {
+                    enemy.getStats().put(Stats.HP, 0);
+                    System.out.println("""
+                            The Rookie Goblin throws a rock at you for 2 damage!
+                            You have 0 HP left.
+                            You have died.
+                            """);
+                }
                 break;
             case 2:
-                savageBite(enemy);
+                try {
+                    savageBite(enemy);
+                } catch (EnemyDeathException e) {
+                    enemy.getStats().put(Stats.HP, 0);
+                    System.out.println("""
+                            The Rookie Goblin bites you for 3 damage!
+                            You have 0 HP left.
+                            You have died.
+                            """);
+                }
                 break;
             default:
                 ((GameCharacter) this).attack(enemy);
@@ -75,7 +94,7 @@ public class RookieGoblin extends Enemy {
      *
      * @param enemy el enemigo a atacar.
      */
-    protected void throwRock(GameCharacter enemy) {
+    protected void throwRock(GameCharacter enemy) throws EnemyDeathException {
         int damage = 2;
         int newHP = reduceHP(enemy, damage);
         String enemyName = enemy.getName();
@@ -92,7 +111,7 @@ public class RookieGoblin extends Enemy {
      *
      * @param enemy el enemigo a atacar.
      */
-    protected void savageBite(GameCharacter enemy) {
+    protected void savageBite(GameCharacter enemy) throws EnemyDeathException {
         int damage = 3;
         int newHP = reduceHP(enemy, damage);
         String enemyName = enemy.getName();
