@@ -7,12 +7,13 @@ import rpg.items.Item;
 import rpg.items.miscs.Misc;
 
 import javax.swing.*;
+import java.io.*;
 import java.util.HashMap;
 
 /**
  * The type Player.
  */
-public class Player extends GameCharacter {
+public class Player extends GameCharacter implements Serializable {
 
     private final Inventory inventory;
 
@@ -25,6 +26,32 @@ public class Player extends GameCharacter {
 
         super(name);
         inventory = new Inventory();
+    }
+
+    public void saveGame() {
+        // Save the game
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream("game.dat"));
+            oos.writeObject(this);
+            oos.close();
+            System.out.println("Game saved.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGame() {
+        // Load the game
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(new FileInputStream("game.dat"));
+            Player player = (Player) ois.readObject();
+            ois.close();
+            System.out.println(player.getName());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

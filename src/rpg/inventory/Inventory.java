@@ -6,12 +6,13 @@ import rpg.items.Item;
 import rpg.items.armors.Armor;
 import rpg.items.miscs.Misc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * The type Inventory.
  */
-public class Inventory {
+public class Inventory implements Serializable {
 
     /**
      * The Items.

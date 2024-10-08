@@ -3,12 +3,13 @@ package rpg.entities;
 import rpg.enums.Stats;
 import rpg.exceptions.EnemyDeathException;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Clase que representa a un personaje del juego.
  */
-public abstract class GameCharacter {
+public abstract class GameCharacter implements Serializable {
     /**
      * Nombre del personaje.
      */

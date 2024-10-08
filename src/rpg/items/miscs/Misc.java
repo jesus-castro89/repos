@@ -2,10 +2,12 @@ package rpg.items.miscs;
 
 import rpg.items.Item;
 
+import java.io.Serializable;
+
 /**
  * The type Misc.
  */
-public abstract class Misc extends Item {
+public abstract class Misc extends Item implements Serializable  {
 
     /**
      * The Consumable.

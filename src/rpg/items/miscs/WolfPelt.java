@@ -2,10 +2,12 @@ package rpg.items.miscs;
 
 import rpg.enums.ItemType;
 
+import java.io.Serializable;
+
 /**
  * The type Wolf pelt.
  */
-public class WolfPelt extends Misc {
+public class WolfPelt extends Misc implements Serializable {
 
     @Override
     protected void initItem() {

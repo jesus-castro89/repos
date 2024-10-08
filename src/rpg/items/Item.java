@@ -2,10 +2,12 @@ package rpg.items;
 
 import rpg.enums.ItemType;
 
+import java.io.Serializable;
+
 /**
  * The type Item.
  */
-public abstract class Item {
+public abstract class Item implements Serializable {
 
     /**
      * The Name.
