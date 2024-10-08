@@ -23,15 +23,19 @@ public class InventoryTest {
         UIManager.put("OptionPane.messageFont",
                 new Font("Arial", Font.BOLD, 18));
         Player player = new Player("Player 1");
-        Item ironHelmet = new IronHelmet();
-        Item woodHelmet = new WoodHelmet();
-        player.addItemToInventory(ironHelmet);
-        player.addItemToInventory(woodHelmet);
+        player.addItemToInventory(new IronHelmet());
+        player.addItemToInventory(new WoodHelmet());
         player.addItemToInventory(new WolfPelt());
         player.showInventory();
         player.addItemToInventory(new WolfPelt());
         player.showInventory();
         player.addItemToInventory(new WoodHelmet());
+        player.showInventory();
+        player.sellItem(new IronHelmet());
+        player.showInventory();
+        player.sellItem(new WoodHelmet());
+        player.showInventory();
+        player.sellItem(new WolfPelt());
         player.showInventory();
     }
 }

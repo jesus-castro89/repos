@@ -1,6 +1,7 @@
 package rpg.inventory;
 
 import rpg.exceptions.InventoryFullException;
+import rpg.exceptions.ItemNotFoundException;
 import rpg.items.Item;
 import rpg.items.armors.Armor;
 import rpg.items.miscs.Misc;
@@ -15,7 +16,7 @@ public class Inventory {
     /**
      * The Items.
      */
-    private ArrayList<Item> items;
+    private final ArrayList<Item> items;
     /**
      * The Capacity.
      */
@@ -67,6 +68,21 @@ public class Inventory {
      */
     public Item getItem(int index) {
         return items.get(index);
+    }
+
+    public Item getItem(Item item) throws ItemNotFoundException {
+
+        Item found = null;
+        for (Item i : items) {
+            if (i.getName().equals(item.getName())) {
+                found = i;
+                break;
+            }
+        }
+        if (found == null) {
+            throw new ItemNotFoundException();
+        }
+        return found;
     }
 
     /**

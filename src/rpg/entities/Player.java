@@ -1,6 +1,7 @@
 package rpg.entities;
 
 import rpg.enums.Stats;
+import rpg.exceptions.ItemNotFoundException;
 import rpg.inventory.Inventory;
 import rpg.items.Item;
 import rpg.items.miscs.Misc;
@@ -81,6 +82,26 @@ public class Player extends GameCharacter {
                     }
                 }
             }
+        }
+    }
+
+    public void sellItem(Item item) {
+
+        try {
+            Item getItem = inventory.getItem(item);
+            if (getItem instanceof Misc misc) {
+                if (misc.isStackable()) {
+                    if (misc.getQuantity() > 1) {
+                        misc.decreaseQuantity(1);
+                    } else {
+                        inventory.removeItem(item);
+                    }
+                }
+            } else {
+                inventory.removeItem(getItem);
+            }
+        } catch (ItemNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
