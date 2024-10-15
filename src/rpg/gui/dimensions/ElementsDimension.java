@@ -12,4 +12,5 @@ public interface ElementsDimension {
     // Dimensiones
     Dimension MAIN_WINDOW_DIMENSION = new Dimension(1520, 900);
     Dimension TOP_PANEL_DIMENSION = new Dimension(MAIN_WINDOW_DIMENSION.width, 250);
+    Dimension BAR_LABEL = new Dimension(172, 51);
 }

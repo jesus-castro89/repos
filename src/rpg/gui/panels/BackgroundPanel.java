@@ -1,5 +1,7 @@
 package rpg.gui.panels;
 
+import rpg.utils.cache.ImageCache;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,7 +10,6 @@ import java.awt.*;
  */
 public abstract class BackgroundPanel extends JPanel {
 
-    protected final String basePath = "image/";
     /**
      * Imagen de fondo del panel.
      */
@@ -25,7 +26,7 @@ public abstract class BackgroundPanel extends JPanel {
      */
     public BackgroundPanel(String imageName) {
         // Buscamos la imagen por ahora directamente en los directorios
-        backgroundImage = new ImageIcon(basePath + imageName);
+        backgroundImage = new ImageIcon(ImageCache.addImage(imageName, imageName));
     }
 
     /**
