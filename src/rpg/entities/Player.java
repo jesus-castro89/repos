@@ -75,7 +75,7 @@ public class Player extends GameCharacter implements Serializable {
         if (item instanceof Misc misc) {
             if (misc.isStackable()) {
                 boolean found = false;
-                for (Item i : inventory.getItems()) {
+                for (Item i : inventory.getMiscs()) {
                     if (i.getName().equals(misc.getName())) {
                         misc.increaseQuantity(1);
                         inventory.removeItem(i);
@@ -99,7 +99,7 @@ public class Player extends GameCharacter implements Serializable {
 
         if (item instanceof Misc misc) {
             if (misc.isStackable()) {
-                for (Item i : inventory.getItems()) {
+                for (Item i : inventory.getMiscs()) {
                     if (i.getName().equals(item.getName())) {
                         misc.decreaseQuantity(1);
                         if (misc.getQuantity() == 0) {
@@ -108,7 +108,11 @@ public class Player extends GameCharacter implements Serializable {
                         break;
                     }
                 }
+            }else {
+                inventory.removeItem(item);
             }
+        }else {
+            inventory.removeItem(item);
         }
     }
 

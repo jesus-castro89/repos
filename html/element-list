@@ -1,3 +1,4 @@
+rpg
 rpg.entities
 rpg.entities.enemies
 rpg.entities.enemies.bears
@@ -5,6 +6,10 @@ rpg.entities.enemies.goblins
 rpg.entities.enemies.slimes
 rpg.entities.enemies.wolfs
 rpg.enums
+rpg.exceptions
+rpg.gui
+rpg.gui.dimensions
+rpg.gui.panels
 rpg.interfaces
 rpg.inventory
 rpg.items
