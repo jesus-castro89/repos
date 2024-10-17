@@ -19,17 +19,17 @@ public class HoverButtonUI extends BasicButtonUI {
 
         initParts();
         b.setFont(FontCache.addFont("M6X",
-                "fonts/M6X.ttf").deriveFont(22f));
+                "fonts/M6X.ttf").deriveFont(22.5f));
         b.setForeground(Color.BLACK);
         b.setDoubleBuffered(true);
         b.setOpaque(false);
         b.setBorderPainted(false);
         b.setFocusPainted(false);
         b.setContentAreaFilled(false);
-        b.setIconTextGap(2);
+        b.setIconTextGap(5);
         b.setCursor(new Cursor(Cursor.HAND_CURSOR));
         String text = b.getText();
-        this.width = b.getFontMetrics(b.getFont()).stringWidth(text) + (25);
+        this.width = b.getFontMetrics(b.getFont()).stringWidth(text) + (5);
         this.height = 48;
     }
 

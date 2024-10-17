@@ -21,13 +21,12 @@ public abstract class BackgroundPanel extends JPanel {
 
     /**
      * Constructor de la clase.
-     *
-     * @param imageName Ruta de la imagen de fondo.
      */
-    public BackgroundPanel(String imageName) {
-        // Buscamos la imagen por ahora directamente en los directorios
-        backgroundImage = new ImageIcon(ImageCache.addImage(imageName, imageName));
+    public BackgroundPanel() {
+        init();
     }
+
+    protected abstract void init();
 
     /**
      * Establece las dimensiones del panel.
