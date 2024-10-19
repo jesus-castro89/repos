@@ -22,16 +22,15 @@ public class MainWindow extends JFrame {
     private JButton b3;
     private JLabel exampleLabel;
     private JDesktopPane desktopPane;
+    private JInternalFrame internalFrame;
 
     public MainWindow() {
         initComponents();
+        internalFrame = new StatusFrame();
+        desktopPane.add(internalFrame, JLayeredPane.PALETTE_LAYER);
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JInternalFrame internalFrame = new StatusFrame();
-                internalFrame.setOpaque(false);
-                internalFrame.setBackground(new Color(0, 0, 0, 0));
-                desktopPane.add(internalFrame, JLayeredPane.PALETTE_LAYER);
                 internalFrame.setVisible(true);
             }
         });
@@ -50,7 +49,7 @@ public class MainWindow extends JFrame {
         // Agregamos el panel principal al DesktopPane
         desktopPane.add(mainPanel, JLayeredPane.DEFAULT_LAYER);
         // Agregamos el panel principal a la ventana
-            setContentPane(desktopPane);
+        setContentPane(desktopPane);
         // Definimos el título de la ventana
         setTitle("RPG Game");
         // Definimos la operación por defecto al cerrar la ventana
