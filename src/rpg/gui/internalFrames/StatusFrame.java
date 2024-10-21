@@ -18,31 +18,10 @@ public class StatusFrame extends JInternalFrame {
     private Dimension dimension;
 
     public StatusFrame() {
-        setOpaque(false);
         add(mainPanel);
         dimension = new Dimension(650, 600);
-        internalStatusBar = new InternalStatusBar("Status",
-                dimension, this);
-        internalStatusBar.setVisible(true);
-        setPreferredSize(dimension);
+        setUI(new TransparentFrameUI(this, dimension));
         setSize(getPreferredSize());
-        mainPanel.setOpaque(false);
-        setBorder(new EmptyBorder(0, 0, 0, 0));
-        setUI(new BasicInternalFrameUI(this) {
-            @Override
-            protected JComponent createNorthPane(JInternalFrame w) {
-                return internalStatusBar;
-            }
-        });
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-                mainPanel.setSize(getSize());
-                internalStatusBar.updateWidth(getWidth());
-                getUI().update(getGraphics(), internalStatusBar);
-            }
-        });
     }
 
     private void createUIComponents() {
@@ -55,6 +34,6 @@ public class StatusFrame extends JInternalFrame {
                         0, 0, getWidth(), getHeight(), null);
             }
         };
-        mainPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
+        mainPanel.setBorder(new EmptyBorder(0, 15, 15, 15));
     }
 }
