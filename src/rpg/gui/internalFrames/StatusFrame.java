@@ -4,10 +4,7 @@ import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class StatusFrame extends JInternalFrame {
 
