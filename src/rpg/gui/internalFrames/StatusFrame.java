@@ -1,5 +1,6 @@
 package rpg.gui.internalFrames;
 
+import rpg.gui.ui.TransparentFrameUI;
 import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;
@@ -10,12 +11,11 @@ public class StatusFrame extends JInternalFrame {
 
     private JPanel mainPanel;
     private JButton button1;
-    private JButton button2;
     private InternalStatusBar internalStatusBar;
     private Dimension dimension;
 
     public StatusFrame() {
-        add(mainPanel);
+        setContentPane(mainPanel);
         dimension = new Dimension(650, 600);
         setUI(new TransparentFrameUI(this, dimension));
         setSize(getPreferredSize());

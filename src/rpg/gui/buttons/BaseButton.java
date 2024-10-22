@@ -1,9 +1,9 @@
 package rpg.gui.buttons;
 
+import rpg.gui.ui.HoverButtonUI;
 import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class BaseButton extends JButton {
 

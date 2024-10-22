@@ -1,4 +1,6 @@
-package rpg.gui.internalFrames;
+package rpg.gui.ui;
+
+import rpg.gui.internalFrames.InternalStatusBar;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;

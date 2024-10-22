@@ -1,4 +1,4 @@
-package rpg.gui.buttons;
+package rpg.gui.ui;
 
 import rpg.utils.cache.FontCache;
 import rpg.utils.cache.ImageCache;
@@ -53,7 +53,7 @@ public class HoverButtonUI extends BasicButtonUI {
      * Inicializa las partes del botón.
      * En sus estados normal y hover.
      */
-    private void initParts() {
+    protected void initParts() {
         //Inicializamos los arreglos de imágenes.
         parts = new ImageIcon[3];
         partsHover = new ImageIcon[3];
@@ -86,7 +86,7 @@ public class HoverButtonUI extends BasicButtonUI {
         super.paint(g2d, c);
     }
 
-    private void drawButtonParts(Graphics2D g2d, ImageIcon[] parts) {
+    protected void drawButtonParts(Graphics2D g2d, ImageIcon[] parts) {
 
         g2d.drawImage(parts[0].getImage(), 0, 0, null);
         g2d.translate(27, 0);

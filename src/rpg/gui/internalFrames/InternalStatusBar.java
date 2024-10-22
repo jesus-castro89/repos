@@ -1,12 +1,12 @@
 package rpg.gui.internalFrames;
 
-import rpg.gui.WindowConstants;
+import rpg.gui.UIConstants;
+import rpg.gui.ui.StatusBarUI;
 import rpg.gui.panels.CenterPanel;
 import rpg.gui.panels.LeftCornerPanel;
 import rpg.gui.panels.RightCornerPanel;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicPanelUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,20 +23,8 @@ public class InternalStatusBar extends JPanel {
                              JInternalFrame internalFrame) {
         add(mainPanel);
         internalTitle.setText(title);
-        internalTitle.setFont(WindowConstants.FONT.deriveFont(Font.BOLD, 25f));
-        setUI(new BasicPanelUI() {
-            @Override
-            protected void installDefaults(JPanel p) {
-                p.setBounds(0, 0, dimension.width, 77);
-                p.getInsets(new Insets(0, 0, 0, 0));
-                p.setOpaque(false);
-            }
-
-            @Override
-            public Dimension getPreferredSize(JComponent c) {
-                return new Dimension(dimension.width, 77);
-            }
-        });
+        internalTitle.setFont(UIConstants.FONT.deriveFont(Font.BOLD, 25f));
+        setUI(new StatusBarUI(dimension));
         updateWidth(dimension.width);
         button1.addActionListener(new ActionListener() {
             @Override

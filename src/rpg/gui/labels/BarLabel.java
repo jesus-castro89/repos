@@ -1,21 +1,48 @@
 package rpg.gui.labels;
 
+import rpg.gui.UIConstants;
+import rpg.utils.cache.ImageCache;
+
 import javax.swing.*;
+import java.awt.*;
 
-public class BarLabel extends JLabel {
+public class BarLabel extends JLabel{
 
+    private ImageIcon icon;
     private int barValue;
     private int maxValue;
 
-    public BarLabel(BarType type, int barValue, int maxValue) {
+    public BarLabel(String text) {
+        setText(text);
+        initComponents();
+    }
 
-        this.maxValue = maxValue;
-        setBarValue(barValue);
-        setUI(new BarLabelUI(type));
-        //Esto permite agregar una fuente con su nombre y la dirección al archivo a la que hace referencia
-        //FontCache.addFont("Gamer", "fonts/Gamer.ttf");
-        //Esto permite cargar la fuente que se agregó anteriormente y modificar su tamaño a 24px
-        //setFont(FontCache.getFont("Gamer").deriveFont(24f));
+    public void initComponents() {
+
+        ImageCache.addImage("bar",
+                "player/lifeBar.png");
+        icon = ImageCache.getImageIcon("bar");
+        setPreferredSize(
+                new Dimension(icon.getIconWidth(),
+                        icon.getIconHeight()));
+        setIcon(icon);
+        setVerticalAlignment(JLabel.BOTTOM);
+        setVerticalTextPosition(JLabel.BOTTOM);
+        setHorizontalAlignment(JLabel.RIGHT);
+        setHorizontalTextPosition(JLabel.CENTER);
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.drawImage(icon.getImage(), 0, 0,
+                getPreferredSize().width,
+                getPreferredSize().height, this);
+        g2d.setFont(UIConstants.FONT.deriveFont(Font.BOLD, 16));
+        g2d.setColor(Color.WHITE);
+        g2d.drawString(getText(), 10, 10);
     }
 
     public void setBarValue(int value) {

@@ -1,22 +1,29 @@
-package rpg.gui.labels;
+package rpg.gui.ui;
 
-import rpg.utils.cache.FontCache;
-import rpg.gui.dimensions.ElementsDimension;
+import rpg.enums.BarType;
+import rpg.gui.UIConstants;
+import rpg.gui.labels.BarLabel;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicLabelUI;
 import java.awt.*;
 
 public class BarLabelUI extends BasicLabelUI {
 
+    private Dimension size;
+    private ImageIcon icon;
     private BarType type;
 
-    public BarLabelUI(BarType type) {
+    public BarLabelUI(Dimension size, ImageIcon icon) {
 
         this.type = type;
-        //Esto permite agregar una fuente con su nombre y la dirección al archivo a la que hace referencia
-        FontCache.addFont("Gamer", "fonts/Gamer.ttf");
+    }
+
+    @Override
+    protected void installDefaults(JLabel c) {
+        c.setOpaque(false);
+        c.setBorder(null);
+        c.setForeground(Color.WHITE);
     }
 
     private int getBarValue(JLabel c) {
@@ -40,13 +47,6 @@ public class BarLabelUI extends BasicLabelUI {
     }
 
     @Override
-    protected void installDefaults(JLabel c) {
-
-        c.setForeground(new Color(241, 229, 227));
-        c.setIconTextGap(30);
-    }
-
-    @Override
     public void paint(Graphics g, JComponent c) {
 
         Graphics2D g2d = (Graphics2D) g;
@@ -67,14 +67,9 @@ public class BarLabelUI extends BasicLabelUI {
     protected void paintEnabledText(JLabel l, Graphics g, String s, int textX, int textY) {
 
         textX = l.getIconTextGap() +
-                ((ElementsDimension.BAR_LABEL.width - l.getFontMetrics(l.getFont()).stringWidth(s)) / 2);
-        textY = (ElementsDimension.BAR_LABEL.height - l.getFontMetrics(l.getFont()).getHeight() / 2)
+                ((UIConstants.BAR_LABEL.width - l.getFontMetrics(l.getFont()).stringWidth(s)) / 2);
+        textY = (UIConstants.BAR_LABEL.height - l.getFontMetrics(l.getFont()).getHeight() / 2)
                 + 5;
         super.paintEnabledText(l, g, s, textX, textY);
-    }
-
-    @Override
-    public Dimension getPreferredSize(JComponent c) {
-        return ElementsDimension.BAR_LABEL;
     }
 }
