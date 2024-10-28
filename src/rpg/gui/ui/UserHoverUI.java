@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class UserHoverUI extends HoverButtonUI {
 
-    private int staticWidth = 180;
+    private final int staticWidth = 180;
 
     protected void installDefaults(AbstractButton b) {
         super.installDefaults(b);
@@ -50,7 +50,5 @@ public class UserHoverUI extends HoverButtonUI {
         g2d.translate(staticWidth - 54, 0);
         g2d.drawImage(parts[2].getImage(), 0, 0, null);
         g2d.translate(-staticWidth + width + 54, 0);
-
-
     }
 }

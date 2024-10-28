@@ -1,5 +1,6 @@
 package rpg.gui.ui;
 
+import rpg.gui.UIConstants;
 import rpg.utils.cache.FontCache;
 import rpg.utils.cache.ImageCache;
 
@@ -18,8 +19,7 @@ public class HoverButtonUI extends BasicButtonUI {
     protected void installDefaults(AbstractButton b) {
 
         initParts();
-        b.setFont(FontCache.addFont("M6X",
-                "fonts/M6X.ttf").deriveFont(22.5f));
+        b.setFont(UIConstants.FONT.deriveFont(Font.PLAIN, 24));
         b.setForeground(Color.BLACK);
         b.setDoubleBuffered(true);
         b.setOpaque(false);

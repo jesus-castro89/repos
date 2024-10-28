@@ -1,6 +1,6 @@
 package rpg.gui.labels;
 
-import rpg.gui.ui.LabelUI;
+import rpg.gui.ui.GameLabelUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ public abstract class AbstractLabel extends JLabel {
 
     public AbstractLabel() {
         initComponents();
-        setUI(new LabelUI(getPreferredSize(), icon));
+        setUI(new GameLabelUI(getPreferredSize(), icon));
     }
 
     public abstract void initComponents();

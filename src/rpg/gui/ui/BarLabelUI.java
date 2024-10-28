@@ -7,69 +7,96 @@ import rpg.gui.labels.BarLabel;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicLabelUI;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class BarLabelUI extends BasicLabelUI {
 
-    private Dimension size;
-    private ImageIcon icon;
-    private BarType type;
+    private final BarType type;
 
-    public BarLabelUI(Dimension size, ImageIcon icon) {
-
+    public BarLabelUI(BarType type) {
         this.type = type;
     }
 
     @Override
     protected void installDefaults(JLabel c) {
+
         c.setOpaque(false);
         c.setBorder(null);
         c.setForeground(Color.WHITE);
+        c.setFont(UIConstants.BAR_LABEL_FONT);
+        c.setVerticalAlignment(JLabel.BOTTOM);
+        c.setVerticalTextPosition(JLabel.BOTTOM);
+        c.setHorizontalAlignment(JLabel.RIGHT);
+        c.setHorizontalTextPosition(JLabel.RIGHT);
     }
 
-    private int getBarValue(JLabel c) {
-        return ((BarLabel) c).getBarValue();
+    @Override
+    public Dimension getPreferredSize(JComponent c) {
+
+        return getBarWidth();
     }
 
-    private int getMaxBarValue(JLabel c) {
-        return ((BarLabel) c).getMaxValue();
+    @Override
+    public Dimension getMinimumSize(JComponent c) {
+
+        return getBarWidth();
     }
 
-    private int getBarWidth(JLabel c) {
+    @Override
+    public Dimension getMaximumSize(JComponent c) {
 
-        int value = getBarValue(c);
-        int max = getMaxBarValue(c);
-        if (value >= max) {
-            value = max;
-        } else if (value > 0 && value <= 25) {
-            value = (int) (max * .18);
-        }
-        return (int) (value * 1.0 / max * 130);
+        return getBarWidth();
+    }
+
+    @Override
+    protected void paintEnabledText(JLabel l, Graphics g, String s, int textX, int textY) {
+
+        g.drawString(s, textX-34, textY+3);
     }
 
     @Override
     public void paint(Graphics g, JComponent c) {
 
         Graphics2D g2d = (Graphics2D) g;
-        int textX = (getPreferredSize(c).width - c.getFontMetrics(c.getFont()).stringWidth(((JLabel) c).getText())) / 2;
-        int textY = getPreferredSize(c).height - c.getFontMetrics(c.getFont()).getHeight() / 2;
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        g2d.drawImage(type.getContainer().getImage(), c.getWidth() - 150, 1, 150, 50, null);
-        g2d.drawImage(type.getBar().getImage(), 32, 10, getBarWidth((JLabel) c), 14, null);
-        g2d.drawImage(type.getIcon().getImage(), 0, 0, 51, 51, null);
-        g2d.setColor(Color.BLACK);
-        paintEnabledText((JLabel) c, g, ((JLabel) c).getText(), textX, textY);
+        BarLabel barLabel = (BarLabel) c;
+        BufferedImage icon = type.getIcon();
+        BufferedImage container = type.getContainer();
+        BufferedImage bar = type.getBar();
+        int barValue = getBarValue(barLabel);
+        int maxValue = getMaxBarValue(barLabel);
+        int iconX = 0;
+        int iconY = 0;
+        int iconWidth = UIConstants.BAR_ICON.width;
+        int iconHeight = UIConstants.BAR_ICON.height;
+        int displayX = UIConstants.BAR_ICON.width - 2;
+        int displayY = iconY + 5;
+        int displayWidth = UIConstants.BAR_DISPLAY.width;
+        int displayHeight = UIConstants.BAR_DISPLAY.height;
+        int barWidth = (int) ((double) barValue / maxValue * 157);
+        int barHeight = 17;
+        int barX = iconWidth + 9;
+        int barY = iconY + 15;
+        g2d.drawImage(icon, iconX, iconY, iconWidth, iconHeight, null);
+        g2d.drawImage(container, displayX, displayY, displayWidth, displayHeight, null);
+        g2d.drawImage(bar, barX, barY, barWidth, barHeight, null);
+        super.paint(g, c);
     }
 
-    @Override
-    protected void paintEnabledText(JLabel l, Graphics g, String s, int textX, int textY) {
+    private int getBarValue(JLabel c) {
 
-        textX = l.getIconTextGap() +
-                ((UIConstants.BAR_LABEL.width - l.getFontMetrics(l.getFont()).stringWidth(s)) / 2);
-        textY = (UIConstants.BAR_LABEL.height - l.getFontMetrics(l.getFont()).getHeight() / 2)
-                + 5;
-        super.paintEnabledText(l, g, s, textX, textY);
+        return ((BarLabel) c).getBarValue();
+    }
+
+    private int getMaxBarValue(JLabel c) {
+
+        return ((BarLabel) c).getMaxValue();
+    }
+
+    private Dimension getBarWidth() {
+
+        Dimension iconSize = UIConstants.BAR_ICON;
+        Dimension displaySize = UIConstants.BAR_DISPLAY;
+        int width = iconSize.width + displaySize.width;
+        return new Dimension(width, iconSize.height + 5);
     }
 }

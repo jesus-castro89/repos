@@ -3,53 +3,45 @@ package rpg.enums;
 import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 public enum BarType {
 
     LIFE, MAGIC, EXPERIENCE;
 
-    ImageIcon container;
-    ImageIcon icon;
-    ImageIcon bar;
+    BufferedImage container;
+    BufferedImage icon;
+    BufferedImage bar;
 
     BarType() {
         switch (this) {
             case LIFE -> {
-                ImageCache.addImage("life_container", "img/bars/life/container.png");
-                ImageCache.addImage("life_icon", "img/bars/life/icon.png");
-                ImageCache.addImage("life_bar", "img/bars/life/bar.png");
-                container = ImageCache.getImageIcon("life_container");
-                icon = ImageCache.getImageIcon("life_icon");
-                bar = ImageCache.getImageIcon("life_bar");
+                container = ImageCache.addImage("life_container", "bars/life_container.png");
+                icon = ImageCache.addImage("life_icon", "bars/life_icon.png");
+                bar = ImageCache.addImage("life_bar", "bars/life_bar.png");
             }
             case MAGIC -> {
-                ImageCache.addImage("magic_container", "img/bars/magic/container.png");
-                ImageCache.addImage("magic_icon", "img/bars/magic/icon.png");
-                ImageCache.addImage("magic_bar", "img/bars/magic/bar.png");
-                container = ImageCache.getImageIcon("magic_container");
-                icon = ImageCache.getImageIcon("magic_icon");
-                bar = ImageCache.getImageIcon("magic_bar");
+                container = ImageCache.addImage("magic_container", "bars/magic_container.png");
+                icon = ImageCache.addImage("magic_icon", "bars/magic_icon.png");
+                bar = ImageCache.addImage("magic_bar", "bars/magic_bar.png");
             }
             case EXPERIENCE -> {
-                ImageCache.addImage("experience_container", "img/bars/experience/container.png");
-                ImageCache.addImage("experience_icon", "img/bars/experience/icon.png");
-                ImageCache.addImage("experience_bar", "img/bars/experience/bar.png");
-                container = ImageCache.getImageIcon("experience_container");
-                icon = ImageCache.getImageIcon("experience_icon");
-                bar = ImageCache.getImageIcon("experience_bar");
+                container = ImageCache.addImage("exp_container", "bars/exp_container.png");
+                icon = ImageCache.addImage("exp_icon", "bars/exp_icon.png");
+                bar = ImageCache.addImage("exp_bar", "bars/exp_bar.png");
             }
         }
     }
 
-    public ImageIcon getContainer() {
+    public BufferedImage getContainer() {
         return container;
     }
 
-    public ImageIcon getIcon() {
+    public BufferedImage getIcon() {
         return icon;
     }
 
-    public ImageIcon getBar() {
+    public BufferedImage getBar() {
         return bar;
     }
 }

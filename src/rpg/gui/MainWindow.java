@@ -1,8 +1,11 @@
 package rpg.gui;
 
+import rpg.enums.BarType;
 import rpg.gui.buttons.*;
 import rpg.gui.internalFrames.StatusFrame;
 import rpg.gui.labels.BarLabel;
+import rpg.gui.labels.GoldLabel;
+import rpg.gui.labels.NameLabel;
 import rpg.gui.labels.PortraitLabel;
 import rpg.gui.panels.BottomPanel;
 import rpg.gui.panels.MiddlePanel;
@@ -28,7 +31,11 @@ public class MainWindow extends JFrame {
     private JButton huirButton;
     private JTextArea textDisplay;
     private JScrollPane textScroll;
-    private JLabel label1;
+    private JLabel lifeLabel;
+    private JLabel magicLabel;
+    private JLabel expLabel;
+    private JLabel nameLabel;
+    private JLabel goldLabel;
     private JDesktopPane desktopPane;
     private JInternalFrame internalFrame;
 
@@ -104,6 +111,10 @@ public class MainWindow extends JFrame {
         habilidadesButton = new SkillPanelButton();
         huirButton = new FleeButton();
         exampleLabel = new PortraitLabel();
-        label1=new BarLabel("100/100");
+        lifeLabel = new BarLabel(100, 100, BarType.LIFE);
+        magicLabel = new BarLabel(100, 100, BarType.MAGIC);
+        expLabel = new BarLabel(100, 100, BarType.EXPERIENCE);
+        goldLabel = new GoldLabel();
+        nameLabel = new NameLabel("Miguel LVL. 1");
     }
 }
