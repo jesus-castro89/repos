@@ -14,4 +14,9 @@ public abstract class UserButton extends BaseButton {
         setRolloverIcon(null);
         setUI(new UserHoverUI());
     }
+
+    @Override
+    protected void initIcons() {
+        // No se inicializan iconos.
+    }
 }

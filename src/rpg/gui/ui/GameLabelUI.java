@@ -30,13 +30,11 @@ public class GameLabelUI extends BasicLabelUI {
         JLabel label = (JLabel) c;
         FontMetrics fm = g.getFontMetrics();
         String clippedText = layout(label, fm, c.getWidth(), c.getHeight());
-        int textX = 45 + ((paintIconR.width - 45 - (clippedText.length() * fm.charWidth('m'))) / 2);
+        int textX = 40 + ((paintIconR.width - 40 - (fm.stringWidth(label.getText()))) / 2);
         int textY = paintTextR.y + fm.getAscent();
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.drawImage(icon.getImage(), 0, 0,
-                size.width,
-                size.height, c);
+        g2d.drawImage(icon.getImage(), 0, 0, size.width, size.height, c);
         super.paintEnabledText(label, g, clippedText, textX, textY);
     }
 

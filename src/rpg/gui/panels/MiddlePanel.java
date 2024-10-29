@@ -13,6 +13,5 @@ public class MiddlePanel extends BackgroundPanel {
         backgroundImage = new ImageIcon(ImageCache.addImage("midPanel",
                 "panels/mainBackground.png"));
         setDimension(UIConstants.MIDDLE_DIMENSION);
-        setBorder(UIConstants.EMPTY_BORDER);
     }
 }

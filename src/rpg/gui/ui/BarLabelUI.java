@@ -51,7 +51,8 @@ public class BarLabelUI extends BasicLabelUI {
     @Override
     protected void paintEnabledText(JLabel l, Graphics g, String s, int textX, int textY) {
 
-        g.drawString(s, textX-34, textY+3);
+        int textMiddle = g.getFontMetrics(g.getFont()).stringWidth(s) / 2;
+        g.drawString(s, textX-textMiddle-5, textY+3);
     }
 
     @Override

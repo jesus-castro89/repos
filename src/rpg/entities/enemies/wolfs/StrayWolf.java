@@ -6,6 +6,8 @@ import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.utils.Randomize;
 
+import javax.swing.*;
+
 /**
  * The type Stray wolf.
  */
@@ -84,5 +86,10 @@ public class StrayWolf extends Enemy {
                 slash(enemy);
                 break;
         }
+    }
+
+    @Override
+    public ImageIcon getSprite() {
+        return new ImageIcon("src/rpg/assets/enemies/wolfs/strayWolf.png");
     }
 }

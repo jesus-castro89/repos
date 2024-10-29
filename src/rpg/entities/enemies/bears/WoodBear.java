@@ -6,6 +6,8 @@ import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.utils.Randomize;
 
+import javax.swing.*;
+
 /**
  * The type Wood bear.
  */
@@ -85,5 +87,10 @@ public class WoodBear extends Enemy {
                 %s has %d HP left.
                 """, this.name, enemyName, damage, enemyName, newHP);
         System.out.println(message);
+    }
+
+    @Override
+    public ImageIcon getSprite() {
+        return new ImageIcon("src/rpg/images/bears/wood_bear.png");
     }
 }

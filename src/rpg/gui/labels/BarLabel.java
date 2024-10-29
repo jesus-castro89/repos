@@ -1,19 +1,15 @@
 package rpg.gui.labels;
 
 import rpg.enums.BarType;
-import rpg.gui.UIConstants;
 import rpg.gui.ui.BarLabelUI;
-import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class BarLabel extends JLabel {
 
-    private ImageIcon icon;
     private int barValue;
     private int maxValue;
-    private BarType type;
+    private final BarType type;
 
     public BarLabel(int value, int maxValue, BarType type) {
 
@@ -32,7 +28,7 @@ public class BarLabel extends JLabel {
     public void setBarValue(int value) {
 
         this.barValue = value;
-        setText(String.format("%d/%d", value, maxValue));
+        setText(String.format("%d / %d", value, maxValue));
     }
 
     public int getBarValue() {

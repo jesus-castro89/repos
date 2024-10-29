@@ -4,6 +4,9 @@ import rpg.entities.GameCharacter;
 import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+
 /**
  * The type Enemy.
  */
@@ -38,4 +41,10 @@ public abstract class Enemy extends GameCharacter {
     public EnemyType getType() {
         return type;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public abstract ImageIcon getSprite();
 }

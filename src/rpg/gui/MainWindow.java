@@ -1,12 +1,11 @@
 package rpg.gui;
 
+import rpg.entities.enemies.Enemy;
+import rpg.entities.enemies.goblins.RookieGoblin;
 import rpg.enums.BarType;
 import rpg.gui.buttons.*;
 import rpg.gui.internalFrames.StatusFrame;
-import rpg.gui.labels.BarLabel;
-import rpg.gui.labels.GoldLabel;
-import rpg.gui.labels.NameLabel;
-import rpg.gui.labels.PortraitLabel;
+import rpg.gui.labels.*;
 import rpg.gui.panels.BottomPanel;
 import rpg.gui.panels.MiddlePanel;
 import rpg.gui.panels.TopPanel;
@@ -22,9 +21,9 @@ public class MainWindow extends JFrame {
     private JPanel topPanel;
     private JPanel middlePanel;
     private JPanel bottomPanel;
-    private JButton button1;
-    private JButton b2;
-    private JButton b3;
+    private JButton blacksmithButton;
+    private JButton shopButton;
+    private JButton inventoryButton;
     private JLabel exampleLabel;
     private JButton atacarButton;
     private JButton habilidadesButton;
@@ -36,6 +35,12 @@ public class MainWindow extends JFrame {
     private JLabel expLabel;
     private JLabel nameLabel;
     private JLabel goldLabel;
+    private JButton exitButton;
+    private JButton saveButton;
+    private JLabel playerSprite;
+    private JLabel enemySprite;
+    private JLabel enemyLifeLabel;
+    private JLabel enemyNameLabel;
     private JDesktopPane desktopPane;
     private JInternalFrame internalFrame;
 
@@ -43,7 +48,7 @@ public class MainWindow extends JFrame {
         initComponents();
         internalFrame = new StatusFrame();
         desktopPane.add(internalFrame, JLayeredPane.PALETTE_LAYER);
-        button1.addActionListener(new ActionListener() {
+        blacksmithButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 internalFrame.setVisible(true);
@@ -104,17 +109,25 @@ public class MainWindow extends JFrame {
         topPanel = new TopPanel();
         middlePanel = new MiddlePanel();
         bottomPanel = new BottomPanel();
-        button1 = new BaseButton("Button 1");
-        b2 = new BaseButton("Tiendas");
-        b3 = new BaseButton("Inventario");
+        blacksmithButton = new BlacksmithButton();
+        shopButton = new ShopButton();
+        inventoryButton = new InventoryButton();
+        exitButton = new ExitButton();
+        saveButton = new SaveButton();
         atacarButton = new AttackButton();
         habilidadesButton = new SkillPanelButton();
         huirButton = new FleeButton();
         exampleLabel = new PortraitLabel();
         lifeLabel = new BarLabel(100, 100, BarType.LIFE);
-        magicLabel = new BarLabel(100, 100, BarType.MAGIC);
-        expLabel = new BarLabel(100, 100, BarType.EXPERIENCE);
+        magicLabel = new BarLabel(30, 100, BarType.MAGIC);
+        expLabel = new BarLabel(0, 350, BarType.EXPERIENCE);
         goldLabel = new GoldLabel();
         nameLabel = new NameLabel("Miguel LVL. 1");
+        playerSprite = new PlayerSpriteLabel();
+        Enemy enemy = new RookieGoblin();
+        //enemySprite = new EnemySpriteLabel(new RookieGoblin());
+        enemyNameLabel = new NameLabel(enemy.getName());
+        enemyLifeLabel = new BarLabel(100, 100, BarType.LIFE);
+        enemySprite = new EnemySpriteLabel(enemy);
     }
 }

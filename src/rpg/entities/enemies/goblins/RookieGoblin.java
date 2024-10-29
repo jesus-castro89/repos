@@ -6,6 +6,9 @@ import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.exceptions.EnemyDeathException;
 import rpg.utils.Randomize;
+import rpg.utils.cache.ImageCache;
+
+import javax.swing.*;
 
 /**
  * Clase que representa a un Goblin novato.
@@ -16,7 +19,9 @@ public class RookieGoblin extends Enemy {
      * Constructor de la clase.
      */
     public RookieGoblin() {
+
         super("Rookie Goblin");
+        ImageCache.addImage("rookie_goblin", "enemies/goblins/rookie_goblin.png");
     }
 
     /**
@@ -120,5 +125,11 @@ public class RookieGoblin extends Enemy {
                 %s has %d HP left.
                 """, this.name, enemyName, damage, enemyName, newHP);
         System.out.println(message);
+    }
+
+    @Override
+    public ImageIcon getSprite() {
+
+        return ImageCache.getImageIcon("rookie_goblin");
     }
 }

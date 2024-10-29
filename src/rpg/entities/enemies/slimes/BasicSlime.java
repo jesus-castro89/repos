@@ -7,6 +7,8 @@ import rpg.enums.Stats;
 import rpg.exceptions.EnemyDeathException;
 import rpg.utils.Randomize;
 
+import javax.swing.*;
+
 /**
  * The type Basic slime.
  */
@@ -90,5 +92,10 @@ public class BasicSlime extends Enemy {
                         """, this.name, (this.stats.get(Stats.ATTACK) * 8 / 10));
             }
         }
+    }
+
+    @Override
+    public ImageIcon getSprite() {
+        return new ImageIcon("src/rpg/assets/sprites/enemies/slimes/basicSlime.png");
     }
 }
