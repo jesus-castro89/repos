@@ -5,6 +5,7 @@ import rpg.entities.enemies.Enemy;
 import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.utils.Randomize;
+import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;
 
@@ -18,6 +19,7 @@ public class WoodBear extends Enemy {
      */
     public WoodBear() {
         super("Wood Bear");
+        ImageCache.addImage("wood_bear", "enemies/MountainScarbear.png");
     }
 
     @Override
@@ -35,20 +37,16 @@ public class WoodBear extends Enemy {
     }
 
     @Override
-    public void attack(GameCharacter enemy) {
+    public String attack(GameCharacter enemy) {
 
+        String message = "";
         int attack = Randomize.getRandomInt(1, 3);
-        switch (attack) {
-            case 1:
-                claw(enemy);
-                break;
-            case 2:
-                bite(enemy);
-                break;
-            default:
-                ((GameCharacter) this).attack(enemy);
-                break;
-        }
+        message = switch (attack) {
+            case 1 -> claw(enemy);
+            case 2 -> bite(enemy);
+            default -> ((GameCharacter) this).attack(enemy);
+        };
+        return message;
     }
 
     /**
@@ -56,7 +54,7 @@ public class WoodBear extends Enemy {
      *
      * @param enemy the enemy
      */
-    protected void bite(GameCharacter enemy) {
+    protected String bite(GameCharacter enemy) {
 
         int damage = 5;
         String message = "";
@@ -67,7 +65,7 @@ public class WoodBear extends Enemy {
                 %s bites %s for %d damage!
                 %s has %d HP left.
                 """, this.name, enemyName, damage, enemyName, newHP);
-        System.out.println(message);
+        return message;
     }
 
     /**
@@ -75,7 +73,7 @@ public class WoodBear extends Enemy {
      *
      * @param enemy the enemy
      */
-    protected void claw(GameCharacter enemy) {
+    protected String claw(GameCharacter enemy) {
 
         int damage = 4;
         String message = "";
@@ -86,11 +84,11 @@ public class WoodBear extends Enemy {
                 %s claws %s for %d damage!
                 %s has %d HP left.
                 """, this.name, enemyName, damage, enemyName, newHP);
-        System.out.println(message);
+        return message;
     }
 
     @Override
     public ImageIcon getSprite() {
-        return new ImageIcon("src/rpg/images/bears/wood_bear.png");
+        return ImageCache.getImageIcon("wood_bear");
     }
 }

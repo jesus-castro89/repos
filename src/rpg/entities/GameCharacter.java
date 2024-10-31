@@ -55,7 +55,7 @@ public abstract class GameCharacter implements Serializable {
      *
      * @param enemy el enemigo a atacar.
      */
-    public void attack(GameCharacter enemy) {
+    public String attack(GameCharacter enemy) {
 
         String message = "";
         String enemyName = enemy.getName();
@@ -83,7 +83,7 @@ public abstract class GameCharacter implements Serializable {
                     %s has %d HP left.
                     """, this.name, enemyName, enemyName, newHP);
         }
-        System.out.println(message);
+        return message;
     }
 
     /**

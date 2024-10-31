@@ -31,7 +31,7 @@ public abstract class Enemy extends GameCharacter {
      */
     public abstract void getLoot();
 
-    public abstract void attack(GameCharacter enemy);
+    public abstract String attack(GameCharacter enemy);
 
     /**
      * Gets type.

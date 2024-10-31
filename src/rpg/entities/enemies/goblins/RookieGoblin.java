@@ -54,7 +54,8 @@ public class RookieGoblin extends Enemy {
      * @param enemy el enemigo a atacar.
      */
     @Override
-    public void attack(GameCharacter enemy) {
+    public String attack(GameCharacter enemy) {
+        String message = "";
         // Se elige un número aleatorio entre 1 y 100
         int random = Randomize.getRandomInt(1, 100);
         // 50% de probabilidad de atacar normalmente
@@ -65,32 +66,33 @@ public class RookieGoblin extends Enemy {
         switch (attack) {
             case 1:
                 try {
-                    throwRock(enemy);
+                    message = throwRock(enemy);
                 } catch (EnemyDeathException e) {
                     enemy.getStats().put(Stats.HP, 0);
-                    System.out.println("""
+                    message = """
                             The Rookie Goblin throws a rock at you for 2 damage!
                             You have 0 HP left.
                             You have died.
-                            """);
+                            """;
                 }
                 break;
             case 2:
                 try {
-                    savageBite(enemy);
+                    message = savageBite(enemy);
                 } catch (EnemyDeathException e) {
                     enemy.getStats().put(Stats.HP, 0);
-                    System.out.println("""
+                    message = """
                             The Rookie Goblin bites you for 3 damage!
                             You have 0 HP left.
                             You have died.
-                            """);
+                            """;
                 }
                 break;
             default:
-                ((GameCharacter) this).attack(enemy);
+                message = ((GameCharacter) this).attack(enemy);
                 break;
         }
+        return message;
     }
 
     /**
@@ -99,7 +101,7 @@ public class RookieGoblin extends Enemy {
      *
      * @param enemy el enemigo a atacar.
      */
-    protected void throwRock(GameCharacter enemy) throws EnemyDeathException {
+    protected String throwRock(GameCharacter enemy) throws EnemyDeathException {
         int damage = 2;
         int newHP = reduceHP(enemy, damage);
         String enemyName = enemy.getName();
@@ -107,7 +109,7 @@ public class RookieGoblin extends Enemy {
                 %s throws a rock at %s for %d damage!
                 %s has %d HP left.
                 """, this.name, enemyName, damage, enemyName, newHP);
-        System.out.println(message);
+        return message;
     }
 
     /**
@@ -116,7 +118,7 @@ public class RookieGoblin extends Enemy {
      *
      * @param enemy el enemigo a atacar.
      */
-    protected void savageBite(GameCharacter enemy) throws EnemyDeathException {
+    protected String savageBite(GameCharacter enemy) throws EnemyDeathException {
         int damage = 3;
         int newHP = reduceHP(enemy, damage);
         String enemyName = enemy.getName();
@@ -124,7 +126,7 @@ public class RookieGoblin extends Enemy {
                 %s bites %s for %d damage!
                 %s has %d HP left.
                 """, this.name, enemyName, damage, enemyName, newHP);
-        System.out.println(message);
+        return message;
     }
 
     @Override

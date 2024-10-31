@@ -1,5 +1,6 @@
 package rpg.entities.enemies.goblins;
 
+import rpg.enums.EnemyType;
 import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ public class GoblinGeneral extends RookieGoblin {
 
         super();
         setName("Goblin General");
+        type = EnemyType.BOSS;
         ImageCache.addImage("goblin_general", "enemies/Zodiac Virgo.png");
     }
 

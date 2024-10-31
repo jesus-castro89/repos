@@ -43,13 +43,13 @@ public class BasicSlime extends Enemy {
      *
      * @param enemy el enemigo a atacar. Que en este caso no recibe daño y es el jugador.
      */
-    protected void splash(GameCharacter enemy) {
+    protected String splash(GameCharacter enemy) {
         // Recuperamos el nombre del enemigo.
         String enemyName = enemy.getName();
         // Calculamos la vida del enemigo después del ataque. El daño es 0 en este caso.
         int newHP = enemy.getStats().get(Stats.HP);
-        System.out.printf("""
-                %s splashes %s and does nothing.
+        return String.format("""
+                %s splashes slime at %s!
                 %s has %d HP left.
                 """, this.name, enemyName, enemyName, newHP);
     }
@@ -59,12 +59,12 @@ public class BasicSlime extends Enemy {
      *
      * @param enemy el enemigo a atacar.
      */
-    protected void trhowSlime(GameCharacter enemy) throws EnemyDeathException {
+    protected String trhowSlime(GameCharacter enemy) throws EnemyDeathException {
 
         String enemyName = enemy.getName();
         int damage = this.stats.get(Stats.ATTACK) * 8 / 10;
         int newHP = reduceHP(enemy, this.stats.get(Stats.ATTACK) * 8 / 10);
-        System.out.printf("""
+        return String.format("""
                 %s throws slime at %s for %d damage!
                 %s has %d HP left.
                 """, this.name, enemyName, damage, enemyName, newHP);
@@ -77,21 +77,25 @@ public class BasicSlime extends Enemy {
      * @param enemy el enemigo a atacar.
      */
     @Override
-    public void attack(GameCharacter enemy) {
+    public String attack(GameCharacter enemy) {
 
+        String message = "";
         if (Randomize.getRandomBoolean()) splash(enemy);
         else {
             try {
-                trhowSlime(enemy);
+                message = trhowSlime(enemy);
             } catch (EnemyDeathException e) {
                 enemy.getStats().put(Stats.HP, 0);
-                System.out.printf("""
-                        %s throws slime at you for %d damage!
-                        You have 0 HP left.
-                        You have died.
-                        """, this.name, (this.stats.get(Stats.ATTACK) * 8 / 10));
+                message += String.format("""
+                                %s throws slime at %s for %d damage!
+                                %s has 0 HP left.
+                                %s has died.
+                                """, this.name, enemy.getName(),
+                        this.stats.get(Stats.ATTACK) * 8 / 10,
+                        enemy.getName(), enemy.getName());
             }
         }
+        return message;
     }
 
     @Override

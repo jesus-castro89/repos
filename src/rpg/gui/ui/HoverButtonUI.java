@@ -1,7 +1,6 @@
 package rpg.gui.ui;
 
 import rpg.gui.UIConstants;
-import rpg.utils.cache.FontCache;
 import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;

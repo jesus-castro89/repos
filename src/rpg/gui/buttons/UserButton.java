@@ -1,9 +1,6 @@
 package rpg.gui.buttons;
 
 import rpg.gui.ui.UserHoverUI;
-import rpg.utils.cache.ImageCache;
-
-import javax.swing.*;
 
 public abstract class UserButton extends BaseButton {
 

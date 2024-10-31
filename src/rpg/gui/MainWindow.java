@@ -1,6 +1,9 @@
 package rpg.gui;
 
+import rpg.entities.Player;
 import rpg.entities.enemies.Enemy;
+import rpg.entities.enemies.EnemyFactory;
+import rpg.entities.enemies.goblins.GoblinGeneral;
 import rpg.entities.enemies.goblins.RookieGoblin;
 import rpg.enums.BarType;
 import rpg.gui.buttons.*;
@@ -12,6 +15,7 @@ import rpg.gui.panels.TopPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,8 +47,11 @@ public class MainWindow extends JFrame {
     private JLabel enemyNameLabel;
     private JDesktopPane desktopPane;
     private JInternalFrame internalFrame;
+    Player player;
+    Enemy enemy;
 
     public MainWindow() {
+        player = new Player("Miguel");
         initComponents();
         internalFrame = new StatusFrame();
         desktopPane.add(internalFrame, JLayeredPane.PALETTE_LAYER);
@@ -54,6 +61,13 @@ public class MainWindow extends JFrame {
                 internalFrame.setVisible(true);
             }
         });
+        appendText("¡Bienvenido a RPG Game!\n");
+        appendText("¡Prepárate para la aventura!\n");
+        while (player.isAlive() && enemy.isAlive()) {
+            appendText(player.attack(enemy));
+            if (enemy.isAlive())
+                appendText(enemy.attack(player));
+        }
     }
 
     private void initComponents() {
@@ -87,15 +101,23 @@ public class MainWindow extends JFrame {
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         textScroll.setHorizontalScrollBarPolicy(
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        textDisplay.setFont(UIConstants.FONT.deriveFont(22f));
+        textDisplay.setFont(UIConstants.FONT.deriveFont(28f));
         textDisplay.setBorder(new EmptyBorder(10, 10, 10, 10));
         textDisplay.setForeground(Color.WHITE);
+        textDisplay.setColumns(1);
+        textDisplay.setEditable(false);
         textDisplay.setLineWrap(true);
         textDisplay.setWrapStyleWord(true);
     }
 
     public static void main(String[] args) {
         new MainWindow();
+    }
+
+    public void appendText(String text) {
+
+        textDisplay.append(text);
+        textDisplay.setCaretPosition(textDisplay.getDocument().getLength());
     }
 
     /**
@@ -106,6 +128,7 @@ public class MainWindow extends JFrame {
      * "Custom Create", deberemos que especificar como se creara en esta función.
      */
     private void createUIComponents() {
+        enemy = EnemyFactory.getEnemy();
         topPanel = new TopPanel();
         middlePanel = new MiddlePanel();
         bottomPanel = new BottomPanel();
@@ -124,10 +147,9 @@ public class MainWindow extends JFrame {
         goldLabel = new GoldLabel();
         nameLabel = new NameLabel("Miguel LVL. 1");
         playerSprite = new PlayerSpriteLabel();
-        Enemy enemy = new RookieGoblin();
-        //enemySprite = new EnemySpriteLabel(new RookieGoblin());
         enemyNameLabel = new NameLabel(enemy.getName());
         enemyLifeLabel = new BarLabel(100, 100, BarType.LIFE);
         enemySprite = new EnemySpriteLabel(enemy);
+        enemySprite.setBorder(new LineBorder(Color.RED, 2));
     }
 }

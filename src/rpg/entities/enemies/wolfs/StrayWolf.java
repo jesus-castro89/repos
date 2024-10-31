@@ -39,11 +39,14 @@ public class StrayWolf extends Enemy {
      *
      * @param enemy the enemy
      */
-    protected void bite(GameCharacter enemy) {
+    protected String bite(GameCharacter enemy) {
         int damage = 4;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
-        System.out.println(this.name + " bites " + enemy.getName() + " for " + damage + " damage!");
-        System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
+        return String.format("""
+                        %s bites %s for %d damage!
+                        %s has %d HP left.
+                        """, this.name, enemy.getName(), damage,
+                enemy.getName(), enemy.getStats().get(Stats.HP));
     }
 
     /**
@@ -51,12 +54,14 @@ public class StrayWolf extends Enemy {
      *
      * @param enemy the enemy
      */
-    protected void claw(GameCharacter enemy) {
+    protected String claw(GameCharacter enemy) {
         int damage = 3;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
-        System.out.println(this.name + " claws " + enemy.getName() + " for "
-                + damage + " damage!");
-        System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
+        return String.format("""
+                        %s claws %s for %d damage!
+                        %s has %d HP left.
+                        """, this.name, enemy.getName(), damage,
+                enemy.getName(), enemy.getStats().get(Stats.HP));
     }
 
     /**
@@ -64,28 +69,27 @@ public class StrayWolf extends Enemy {
      *
      * @param enemy the enemy
      */
-    protected void slash(GameCharacter enemy) {
+    protected String slash(GameCharacter enemy) {
         int damage = 5;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
-        System.out.println(this.name + " slashes " + enemy.getName() + " for "
-                + damage + " damage!");
-        System.out.println(enemy.getName() + " has " + enemy.getStats().get(Stats.HP) + " HP left.");
+        return String.format("""
+                        %s slashes %s for %d damage!
+                        %s has %d HP left.
+                        """, this.name, enemy.getName(), damage,
+                enemy.getName(), enemy.getStats().get(Stats.HP));
     }
 
     @Override
-    public void attack(GameCharacter enemy) {
+    public String attack(GameCharacter enemy) {
+
+        String message = "";
         int attack = Randomize.getRandomInt(1, 3);
-        switch (attack) {
-            case 1:
-                bite(enemy);
-                break;
-            case 2:
-                claw(enemy);
-                break;
-            default:
-                slash(enemy);
-                break;
-        }
+        message = switch (attack) {
+            case 1 -> bite(enemy);
+            case 2 -> claw(enemy);
+            default -> slash(enemy);
+        };
+        return message;
     }
 
     @Override
