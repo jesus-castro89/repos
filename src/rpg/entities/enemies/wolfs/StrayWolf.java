@@ -5,6 +5,7 @@ import rpg.entities.enemies.Enemy;
 import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.utils.Randomize;
+import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;
 
@@ -18,6 +19,7 @@ public class StrayWolf extends Enemy {
      */
     public StrayWolf() {
         super("Stray Wolf");
+        ImageCache.addImage("stray_wolf", "enemies/wolfs/aloneWolf.png");
     }
 
     @Override
@@ -32,6 +34,8 @@ public class StrayWolf extends Enemy {
         this.stats.put(Stats.HP, 30);
         this.stats.put(Stats.ATTACK, 6);
         this.stats.put(Stats.DEFENSE, 2);
+        this.stats.put(Stats.EXPERIENCE, 20);
+        this.stats.put(Stats.GOLD, 10);
     }
 
     /**
@@ -43,8 +47,8 @@ public class StrayWolf extends Enemy {
         int damage = 4;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
         return String.format("""
-                        %s bites %s for %d damage!
-                        %s has %d HP left.
+                        ¡%s muerde a %s por %d de daño!
+                        %s tiene %d HP restantes.
                         """, this.name, enemy.getName(), damage,
                 enemy.getName(), enemy.getStats().get(Stats.HP));
     }
@@ -58,8 +62,8 @@ public class StrayWolf extends Enemy {
         int damage = 3;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
         return String.format("""
-                        %s claws %s for %d damage!
-                        %s has %d HP left.
+                        ¡%s clava sus garras en %s por %d de daño!
+                        %s tiene %d HP restantes.
                         """, this.name, enemy.getName(), damage,
                 enemy.getName(), enemy.getStats().get(Stats.HP));
     }
@@ -73,8 +77,8 @@ public class StrayWolf extends Enemy {
         int damage = 5;
         enemy.getStats().put(Stats.HP, enemy.getStats().get(Stats.HP) - damage);
         return String.format("""
-                        %s slashes %s for %d damage!
-                        %s has %d HP left.
+                        ¡%s lanzó un zarpazo a %s por %d de daño!
+                        %s tiene %d HP restantes.
                         """, this.name, enemy.getName(), damage,
                 enemy.getName(), enemy.getStats().get(Stats.HP));
     }
@@ -94,6 +98,8 @@ public class StrayWolf extends Enemy {
 
     @Override
     public ImageIcon getSprite() {
-        return new ImageIcon("src/rpg/assets/enemies/wolfs/strayWolf.png");
+
+
+        return ImageCache.getImageIcon("stray_wolf");
     }
 }

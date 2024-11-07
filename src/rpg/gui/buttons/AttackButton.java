@@ -1,8 +1,13 @@
 package rpg.gui.buttons;
 
-public class AttackButton extends UserButton{
+import rpg.gui.MainWindow;
+import rpg.gui.buttons.events.AttackEvent;
 
-        public AttackButton() {
-            super("Atacar");
-        }
+public class AttackButton extends UserButton {
+
+    public AttackButton(MainWindow game) {
+
+        super("Atacar");
+        addActionListener(new AttackEvent(game));
+    }
 }

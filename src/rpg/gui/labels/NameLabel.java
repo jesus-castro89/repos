@@ -10,4 +10,11 @@ public class NameLabel extends JLabel {
         super(name);
         setUI(new NameLabelUI());
     }
+
+    public void updateLabel(String name) {
+        setText(name);
+        setUI(new NameLabelUI());
+        revalidate();
+        repaint();
+    }
 }

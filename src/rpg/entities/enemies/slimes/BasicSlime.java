@@ -6,6 +6,7 @@ import rpg.enums.EnemyType;
 import rpg.enums.Stats;
 import rpg.exceptions.EnemyDeathException;
 import rpg.utils.Randomize;
+import rpg.utils.cache.ImageCache;
 
 import javax.swing.*;
 
@@ -19,6 +20,7 @@ public class BasicSlime extends Enemy {
      */
     public BasicSlime() {
         super("Basic Slime");
+        ImageCache.addImage("basic_slime", "enemies/slimes/basic_slime.png");
     }
 
     @Override
@@ -36,6 +38,8 @@ public class BasicSlime extends Enemy {
         this.stats.put(Stats.HP, 20);
         this.stats.put(Stats.ATTACK, 4);
         this.stats.put(Stats.DEFENSE, 1);
+        this.stats.put(Stats.EXPERIENCE, 10);
+        this.stats.put(Stats.GOLD, 5);
     }
 
     /**
@@ -49,8 +53,8 @@ public class BasicSlime extends Enemy {
         // Calculamos la vida del enemigo después del ataque. El daño es 0 en este caso.
         int newHP = enemy.getStats().get(Stats.HP);
         return String.format("""
-                %s splashes slime at %s!
-                %s has %d HP left.
+                ¡%s salpica a %s con lodo!
+                %s no recibe daño.
                 """, this.name, enemyName, enemyName, newHP);
     }
 
@@ -65,8 +69,8 @@ public class BasicSlime extends Enemy {
         int damage = this.stats.get(Stats.ATTACK) * 8 / 10;
         int newHP = reduceHP(enemy, this.stats.get(Stats.ATTACK) * 8 / 10);
         return String.format("""
-                %s throws slime at %s for %d damage!
-                %s has %d HP left.
+                ¡%s lanza baba a %s y le hace %d de daño!
+                %s tiene %d HP restantes.
                 """, this.name, enemyName, damage, enemyName, newHP);
     }
 
@@ -87,9 +91,9 @@ public class BasicSlime extends Enemy {
             } catch (EnemyDeathException e) {
                 enemy.getStats().put(Stats.HP, 0);
                 message += String.format("""
-                                %s throws slime at %s for %d damage!
-                                %s has 0 HP left.
-                                %s has died.
+                                ¡%s lanza baba a %s y le hace %d de daño!
+                                %s tiene %d HP restantes.
+                                %s ha muerto.
                                 """, this.name, enemy.getName(),
                         this.stats.get(Stats.ATTACK) * 8 / 10,
                         enemy.getName(), enemy.getName());
@@ -100,6 +104,6 @@ public class BasicSlime extends Enemy {
 
     @Override
     public ImageIcon getSprite() {
-        return new ImageIcon("src/rpg/assets/sprites/enemies/slimes/basicSlime.png");
+        return ImageCache.getImageIcon("basic_slime");
     }
 }

@@ -42,6 +42,8 @@ public class RookieGoblin extends Enemy {
         this.stats.put(Stats.HP, 35);
         this.stats.put(Stats.ATTACK, 6);
         this.stats.put(Stats.DEFENSE, 2);
+        this.stats.put(Stats.EXPERIENCE, 20);
+        this.stats.put(Stats.GOLD, 10);
     }
 
     /**
@@ -55,7 +57,7 @@ public class RookieGoblin extends Enemy {
      */
     @Override
     public String attack(GameCharacter enemy) {
-        String message = "";
+        String message;
         // Se elige un número aleatorio entre 1 y 100
         int random = Randomize.getRandomInt(1, 100);
         // 50% de probabilidad de atacar normalmente
@@ -70,9 +72,8 @@ public class RookieGoblin extends Enemy {
                 } catch (EnemyDeathException e) {
                     enemy.getStats().put(Stats.HP, 0);
                     message = """
-                            The Rookie Goblin throws a rock at you for 2 damage!
-                            You have 0 HP left.
-                            You have died.
+                            El Goblin novato lanza una roca y te hace 2 de daño.
+                            ¡Has muerto!
                             """;
                 }
                 break;
@@ -82,9 +83,8 @@ public class RookieGoblin extends Enemy {
                 } catch (EnemyDeathException e) {
                     enemy.getStats().put(Stats.HP, 0);
                     message = """
-                            The Rookie Goblin bites you for 3 damage!
-                            You have 0 HP left.
-                            You have died.
+                            El Goblin novato muerde salvajemente y te hace 3 de daño.
+                            ¡Has muerto!
                             """;
                 }
                 break;
@@ -106,8 +106,8 @@ public class RookieGoblin extends Enemy {
         int newHP = reduceHP(enemy, damage);
         String enemyName = enemy.getName();
         String message = String.format("""
-                %s throws a rock at %s for %d damage!
-                %s has %d HP left.
+                ¡%s lanza una roca a %s por %d de daño!
+                %s tiene %d HP restantes.
                 """, this.name, enemyName, damage, enemyName, newHP);
         return message;
     }
@@ -123,8 +123,8 @@ public class RookieGoblin extends Enemy {
         int newHP = reduceHP(enemy, damage);
         String enemyName = enemy.getName();
         String message = String.format("""
-                %s bites %s for %d damage!
-                %s has %d HP left.
+                ¡%s muerde salvajemente a %s por %d de daño!
+                %s tiene %d HP restantes.
                 """, this.name, enemyName, damage, enemyName, newHP);
         return message;
     }

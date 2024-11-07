@@ -66,8 +66,8 @@ public abstract class GameCharacter implements Serializable {
             try {
                 newHP = reduceHP(enemy, damage);
                 message += String.format("""
-                        %s attacks %s for %d damage!
-                        %s has %d HP left.
+                        ¡%s ataca a %s por %d de daño!
+                        %s tiene %d HP restantes.
                         """, this.name, enemyName, damage, enemyName, newHP);
             } catch (EnemyDeathException e) {
                 enemy.getStats().put(Stats.HP, 0);
@@ -79,8 +79,8 @@ public abstract class GameCharacter implements Serializable {
             }
         } else {
             message += String.format("""
-                    %s attacks %s but does no damage!
-                    %s has %d HP left.
+                    ¡%s ataca a %s pero no hace daño!
+                    %s tiene %d HP restantes.
                     """, this.name, enemyName, enemyName, newHP);
         }
         return message;

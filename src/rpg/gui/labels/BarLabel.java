@@ -19,6 +19,15 @@ public class BarLabel extends JLabel {
         initComponents();
     }
 
+    public void updateBar(int value, int maxValue) {
+
+        setMaxValue(maxValue);
+        setBarValue(value);
+        setUI(new BarLabelUI(type));
+        revalidate();
+        repaint();
+    }
+
     public void initComponents() {
 
         setBarValue(barValue);

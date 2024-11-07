@@ -5,6 +5,7 @@ import rpg.exceptions.ItemNotFoundException;
 import rpg.inventory.Inventory;
 import rpg.items.Item;
 import rpg.items.miscs.Misc;
+import rpg.utils.Randomize;
 
 import javax.swing.*;
 import java.io.*;
@@ -28,6 +29,24 @@ public class Player extends GameCharacter implements Serializable {
         inventory = new Inventory();
     }
 
+    public boolean tryToFlee() {
+
+        return Randomize.getRandomBoolean();
+    }
+
+    public void levelUp() {
+
+        stats.put(Stats.LEVEL, stats.get(Stats.LEVEL) + Randomize.getRandomInt(1, 3));
+        stats.put(Stats.MAX_HP, stats.get(Stats.MAX_HP) + Randomize.getRandomInt(5, 10));
+        stats.put(Stats.HP, stats.get(Stats.MAX_HP));
+        stats.put(Stats.MAX_MP, stats.get(Stats.MAX_MP) + Randomize.getRandomInt(2, 5));
+        stats.put(Stats.MP, stats.get(Stats.MAX_MP));
+        stats.put(Stats.ATTACK, stats.get(Stats.ATTACK) + Randomize.getRandomInt(1, 3));
+        stats.put(Stats.DEFENSE, stats.get(Stats.DEFENSE) + Randomize.getRandomInt(1, 3));
+        stats.put(Stats.NEEDED_EXPERIENCE, stats.get(Stats.NEEDED_EXPERIENCE) + 50);
+        stats.put(Stats.EXPERIENCE, 0);
+    }
+
     public void saveGame() {
         // Save the game
         ObjectOutputStream oos = null;
@@ -35,7 +54,6 @@ public class Player extends GameCharacter implements Serializable {
             oos = new ObjectOutputStream(new FileOutputStream("game.dat"));
             oos.writeObject(this);
             oos.close();
-            System.out.println("Game saved.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,10 +78,17 @@ public class Player extends GameCharacter implements Serializable {
      */
     @Override
     protected void initCharacter() {
-        this.stats.put(Stats.MAX_HP, 100);
-        this.stats.put(Stats.HP, 100);
-        this.stats.put(Stats.ATTACK, 10);
-        this.stats.put(Stats.DEFENSE, 5);
+
+        stats.put(Stats.LEVEL, 1);
+        stats.put(Stats.MAX_HP, 100);
+        stats.put(Stats.HP, 100);
+        stats.put(Stats.MAX_MP, 50);
+        stats.put(Stats.MP, 50);
+        stats.put(Stats.ATTACK, 10);
+        stats.put(Stats.DEFENSE, 5);
+        stats.put(Stats.EXPERIENCE, 0);
+        stats.put(Stats.NEEDED_EXPERIENCE, 100);
+        stats.put(Stats.GOLD, 0);
     }
 
     public Inventory getInventory() {
@@ -108,10 +133,10 @@ public class Player extends GameCharacter implements Serializable {
                         break;
                     }
                 }
-            }else {
+            } else {
                 inventory.removeItem(item);
             }
-        }else {
+        } else {
             inventory.removeItem(item);
         }
     }

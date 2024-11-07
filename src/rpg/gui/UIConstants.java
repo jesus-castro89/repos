@@ -55,6 +55,7 @@ public interface UIConstants {
      *
      */
     Dimension BAR_LABEL = new Dimension(172, 51);
+    Dimension MESSAGE_DIMENSION = new Dimension(1100, 287);
     /**
      * Borde vacío de margen simple. Que se puede usar para dar un margen a los paneles.
      */

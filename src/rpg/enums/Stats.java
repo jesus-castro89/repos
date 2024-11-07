@@ -54,4 +54,8 @@ public enum Stats {
      * Inteligencia.
      */
     INTELLIGENCE,
+    EXPERIENCE,
+    NEEDED_EXPERIENCE,
+    LEVEL,
+    GOLD
 }

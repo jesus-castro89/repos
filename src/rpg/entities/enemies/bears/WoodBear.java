@@ -34,6 +34,8 @@ public class WoodBear extends Enemy {
         this.stats.put(Stats.HP, 50);
         this.stats.put(Stats.ATTACK, 8);
         this.stats.put(Stats.DEFENSE, 4);
+        this.stats.put(Stats.EXPERIENCE, 30);
+        this.stats.put(Stats.GOLD, 20);
     }
 
     @Override
@@ -62,8 +64,8 @@ public class WoodBear extends Enemy {
         int newHP = enemy.getStats().get(Stats.HP) - damage;
         enemy.getStats().put(Stats.HP, newHP);
         message += String.format("""
-                %s bites %s for %d damage!
-                %s has %d HP left.
+                ¡%s muerde a %s y le hace %d de daño!
+                %s tiene %d HP restantes.
                 """, this.name, enemyName, damage, enemyName, newHP);
         return message;
     }
@@ -81,8 +83,8 @@ public class WoodBear extends Enemy {
         int newHP = enemy.getStats().get(Stats.HP) - damage;
         enemy.getStats().put(Stats.HP, newHP);
         message += String.format("""
-                %s claws %s for %d damage!
-                %s has %d HP left.
+                ¡%s le da un zarpazo a %s y le hace %d de daño!
+                %s tiene %d HP restantes.
                 """, this.name, enemyName, damage, enemyName, newHP);
         return message;
     }
