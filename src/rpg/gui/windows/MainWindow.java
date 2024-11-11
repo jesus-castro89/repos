@@ -1,10 +1,11 @@
-package rpg.gui;
+package rpg.gui.windows;
 
 import rpg.entities.Player;
 import rpg.entities.enemies.Enemy;
-import rpg.entities.enemies.EnemyFactory;
+import rpg.factory.EnemyFactory;
 import rpg.enums.BarType;
 import rpg.enums.Stats;
+import rpg.gui.UIConstants;
 import rpg.gui.buttons.*;
 import rpg.gui.internalFrames.StatusFrame;
 import rpg.gui.labels.*;
@@ -14,10 +15,7 @@ import rpg.gui.panels.MiddlePanel;
 import rpg.gui.panels.TopPanel;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame {
     private JPanel mainPanel;
@@ -157,25 +155,37 @@ public class MainWindow extends JFrame {
      */
     public void checkGameStatus() {
 
+        // Verificamos si el jugador o el enemigo han muerto
         if (!player.isAlive()) {
-
+            // En caso de que el jugador haya muerto
+            // Añadimos un mensaje al textDisplay de que el jugador ha muerto
             appendText("Has muerto.\n");
             appendText("GAME OVER\n");
         } else if (!enemy.isAlive()) {
-
-            appendText("Has derrotado a " + enemy.getName() + "\n");
-            appendText("Has ganado " + enemy.getStats().get(Stats.EXPERIENCE)
-                    + " puntos de experiencia.\n");
-            player.getStats().put(Stats.EXPERIENCE,
-                    player.getStats().get(Stats.EXPERIENCE)
-                            + enemy.getStats().get(Stats.EXPERIENCE));
-            player.getStats().put(Stats.GOLD, player.getStats().get(Stats.GOLD)
-                    + enemy.getStats().get(Stats.GOLD));
-            if (player.getStats().get(Stats.EXPERIENCE) >=
-                    player.getStats().get(Stats.NEEDED_EXPERIENCE)) {
-
+            // En caso de que el enemigo haya muerto
+            // Recuperamos la experiencia y el oro del jugador y del enemigo
+            int playerExp = player.getStats().get(Stats.EXPERIENCE);
+            int enemyExp = enemy.getStats().get(Stats.EXPERIENCE);
+            int promotionExp = player.getStats().get(Stats.NEEDED_EXPERIENCE);
+            int playerGold = player.getStats().get(Stats.GOLD);
+            int enemyGold = enemy.getStats().get(Stats.GOLD);
+            // Calculamos el total de experiencia y oro
+            int totalExp = playerExp + enemyExp;
+            int totalGold = playerGold + enemyGold;
+            // Añadimos un mensaje al textDisplay de que se ha derrotado al enemigo
+            // y se ha ganado experiencia y oro.
+            appendText("""
+                    Has derrotado a %s
+                    Has ganado %d puntos de experiencia.
+                    Has ganado %d monedas de oro.
+                    """.formatted(enemy.getName(), enemyExp, enemyGold));
+            // Asignamos la nueva experiencia y oro al jugador
+            player.getStats().put(Stats.EXPERIENCE, totalExp);
+            player.getStats().put(Stats.GOLD, totalGold);
+            // Evaluamos si el jugador ha subido de nivel
+            if (totalExp >= promotionExp)
                 updatePlayer();
-            }
+            // Creamos un nuevo enemigo en cualquier caso
             createEnemy();
         }
         updateBars();
@@ -202,18 +212,29 @@ public class MainWindow extends JFrame {
         ((BarLabel) enemyLifeLabel).setBarValue(enemy.getStats().get(Stats.HP));
     }
 
+    /**
+     * Esta función permite actualizar al jugador cuando sube de nivel.
+     * <p>
+     * **IMPORTANTE**: Esta función se llama desde la función checkGameStatus.
+     */
     private void updatePlayer() {
 
+        // Actualizamos al jugador
         player.levelUp();
+        // Obtenemos el nivel, vida, magia y experiencia del jugador
+        int level = player.getStats().get(Stats.LEVEL);
+        int hp = player.getStats().get(Stats.HP);
+        int mp = player.getStats().get(Stats.MP);
+        int neededExp = player.getStats().get(Stats.NEEDED_EXPERIENCE);
+        // Añadimos un mensaje al textDisplay de que el jugador ha subido de nivel
         appendText("Has subido de nivel.\n");
-        ((BarLabel) lifeLabel).updateBar(player.getStats().get(Stats.HP),
-                player.getStats().get(Stats.MAX_HP));
-        ((BarLabel) magicLabel).updateBar(player.getStats().get(Stats.MP),
-                player.getStats().get(Stats.MAX_MP));
-        ((BarLabel) expLabel).updateBar(player.getStats().get(Stats.EXPERIENCE),
-                player.getStats().get(Stats.NEEDED_EXPERIENCE));
-        ((NameLabel) nameLabel).updateLabel(player.getName() + " LVL. " +
-                player.getStats().get(Stats.LEVEL));
+        // Actualizamos las barras de estado del jugador
+        ((BarLabel) lifeLabel).updateBar(hp, hp);
+        ((BarLabel) magicLabel).updateBar(mp, mp);
+        ((BarLabel) expLabel).updateBar(0, neededExp);
+        // Actualizamos el nombre del jugador
+        ((NameLabel) nameLabel).updateLabel(
+                "%s LVL. %d".formatted(player.getName(), level));
     }
 
     /**
@@ -240,7 +261,7 @@ public class MainWindow extends JFrame {
         huirButton = new FleeButton(this);
         exampleLabel = new PortraitLabel();
         lifeLabel = new BarLabel(0, 0, BarType.LIFE);
-        magicLabel = new BarLabel(30, 0, BarType.MAGIC);
+        magicLabel = new BarLabel(0, 0, BarType.MAGIC);
         expLabel = new BarLabel(0, 0, BarType.EXPERIENCE);
         goldLabel = new GoldLabel();
         nameLabel = new NameLabel("Miguel LVL. 1");

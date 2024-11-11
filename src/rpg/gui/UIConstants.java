@@ -11,7 +11,7 @@ import java.awt.*;
 public interface UIConstants {
     Font FONT = FontCache.addFont("PIXM", "fonts/M6X.ttf");
     Font BAR_LABEL_FONT = FontCache.addFont("PAE", "fonts/PixelAE.ttf").deriveFont(16f);
-    Font LABEL_FONT = FontCache.addFont("Retron", "fonts/Retron2000.ttf").deriveFont(Font.BOLD,18f);
+    Font LABEL_FONT = FontCache.addFont("Retron", "fonts/Retron2000.ttf").deriveFont(Font.BOLD, 18f);
     /**
      * Ancho de la ventana.
      */
@@ -49,6 +49,8 @@ public interface UIConstants {
      * Dimensión de la parte inferior de la ventana.
      */
     Dimension BOTTOM_DIMENSION = new Dimension(WINDOW_WIDTH, BOTTOM_HEIGHT);
+    Dimension START_WINDOW_DIMENSION = new Dimension(800, 600);
+    Dimension FILES_PANEL_DIMENSION = new Dimension(786, 563);
     Dimension CORNER_DIMENSION = new Dimension(52, 77);
     Dimension CENTER_DIMENSION = new Dimension(CENTER_WIDTH, 77);
     /**

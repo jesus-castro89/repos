@@ -1,6 +1,6 @@
 package rpg.gui.buttons;
 
-import rpg.gui.MainWindow;
+import rpg.gui.windows.MainWindow;
 
 public class FleeButton extends UserButton {
 

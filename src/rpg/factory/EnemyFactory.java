@@ -1,10 +1,11 @@
-package rpg.entities.enemies;
+package rpg.factory;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
+import rpg.entities.enemies.Enemy;
 import rpg.enums.EnemyType;
 
 import java.util.ArrayList;

@@ -36,7 +36,7 @@ public class Player extends GameCharacter implements Serializable {
 
     public void levelUp() {
 
-        stats.put(Stats.LEVEL, stats.get(Stats.LEVEL) + Randomize.getRandomInt(1, 3));
+        stats.put(Stats.LEVEL, stats.get(Stats.LEVEL) + 1);
         stats.put(Stats.MAX_HP, stats.get(Stats.MAX_HP) + Randomize.getRandomInt(5, 10));
         stats.put(Stats.HP, stats.get(Stats.MAX_HP));
         stats.put(Stats.MAX_MP, stats.get(Stats.MAX_MP) + Randomize.getRandomInt(2, 5));
@@ -45,31 +45,6 @@ public class Player extends GameCharacter implements Serializable {
         stats.put(Stats.DEFENSE, stats.get(Stats.DEFENSE) + Randomize.getRandomInt(1, 3));
         stats.put(Stats.NEEDED_EXPERIENCE, stats.get(Stats.NEEDED_EXPERIENCE) + 50);
         stats.put(Stats.EXPERIENCE, 0);
-    }
-
-    public void saveGame() {
-        // Save the game
-        ObjectOutputStream oos = null;
-        try {
-            oos = new ObjectOutputStream(new FileOutputStream("game.dat"));
-            oos.writeObject(this);
-            oos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loadGame() {
-        // Load the game
-        ObjectInputStream ois = null;
-        try {
-            ois = new ObjectInputStream(new FileInputStream("game.dat"));
-            Player player = (Player) ois.readObject();
-            ois.close();
-            System.out.println(player.getName());
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -89,10 +64,6 @@ public class Player extends GameCharacter implements Serializable {
         stats.put(Stats.EXPERIENCE, 0);
         stats.put(Stats.NEEDED_EXPERIENCE, 100);
         stats.put(Stats.GOLD, 0);
-    }
-
-    public Inventory getInventory() {
-        return inventory;
     }
 
     public void addItemToInventory(Item item) {
@@ -188,5 +159,9 @@ public class Player extends GameCharacter implements Serializable {
             }
         }
         JOptionPane.showMessageDialog(null, content.toString());
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }
