@@ -1,49 +1,38 @@
 package rpg.utils;
 
+import rpg.entities.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 
 public class FileManager {
-    private final String basePath = "files/";
 
-    public static void main(String[] args) {
-        FileManager fileManager = new FileManager();
-        fileManager.writeFile("archivos.txt");
-        fileManager.readFile("archivos.txt");
-    }
+    private static final String BASE_PATH = "files/";
 
-    public FileManager(){
-        UIManager.put("OptionPane.messageFont",
-                new Font("Arial", Font.BOLD, 24));
-    }
+    public static Player loadGame(int slot) throws FileNotFoundException {
 
-    public void writeFile(String fileName) {
-
+        Player player;
+        String fileName = BASE_PATH + "player_" + slot + ".dat";
         try {
-            FileWriter writer = new FileWriter(basePath
-                    + fileName);
-            writer.write(JOptionPane.showInputDialog("Enter text"));
-            writer.close();
-            JOptionPane.showMessageDialog(null,
-                    "File saved");
-        } catch (IOException e) {
-            System.out.println("File not found");
+            player = (Player) new ObjectInputStream(
+                    new FileInputStream(fileName)).readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new FileNotFoundException("No se encontró el archivo");
         }
+        return player;
     }
 
-    public void readFile(String fileName) {
-        String line;
-        String output = "";
+    public static void saveGame(Player player, int slot) {
+
+        ObjectOutputStream oos;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(basePath + fileName));
-            while ((line = reader.readLine()) != null) {
-                output += line + "\n";
-            }
-            reader.close();
-            JOptionPane.showMessageDialog(null, output);
+            oos = new ObjectOutputStream(
+                    new FileOutputStream(BASE_PATH + "player_" + slot + ".dat"));
+            oos.writeObject(player);
+            oos.close();
         } catch (IOException e) {
-            System.out.println("File not found");
+            e.printStackTrace();
         }
     }
 }

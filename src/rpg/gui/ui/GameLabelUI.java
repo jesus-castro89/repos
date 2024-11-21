@@ -34,6 +34,8 @@ public class GameLabelUI extends BasicLabelUI {
         int textY = paintTextR.y + fm.getAscent();
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2d.drawImage(icon.getImage(), 0, 0, size.width, size.height, c);
         super.paintEnabledText(label, g, clippedText, textX, textY);
     }

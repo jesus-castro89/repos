@@ -1,5 +1,6 @@
 package rpg.items.armors;
 
+import rpg.enums.ItemType;
 import rpg.items.Equipment;
 
 /**
@@ -7,4 +8,7 @@ import rpg.items.Equipment;
  */
 public abstract class Armor extends Equipment {
 
+    public Armor() {
+        this.type = ItemType.ARMOR;
+    }
 }

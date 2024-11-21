@@ -1,14 +1,19 @@
 package rpg.gui.windows;
 
+import rpg.entities.Player;
+import rpg.enums.Stats;
 import rpg.gui.UIConstants;
 import rpg.gui.buttons.LoadFileButton;
 import rpg.gui.buttons.NewFileButton;
 import rpg.gui.labels.NameLabel;
 import rpg.gui.panels.FilesPanel;
+import rpg.gui.ui.NameLabelUI;
+import rpg.utils.FileManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class StartWindow extends JFrame {
     private JPanel mainPanel;
@@ -35,78 +40,95 @@ public class StartWindow extends JFrame {
 
     public StartWindow() {
         this.setContentPane(mainPanel);
+        this.setTitle("Java RPG");
         this.setSize(UIConstants.START_WINDOW_DIMENSION);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
+        update();
     }
 
-    private void createUIComponents() {
-        mainPanel = new FilesPanel();
-        titleLabel = new JLabel("Java RPG");
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+    public void update() {
+
         for (int i = 1; i <= 5; i++) {
+            // Cargamos el nombre de la partida
+            JLabel slotLabel = null;
+            String slotName;
+            Player player;
+            JButton newFileButton;
+            JButton loadFileButton;
+            try {
 
-            switch (i) {
-                case 1 -> {
-                    file1Name = new NameLabel(isFileEmpty(i) ? "-- SIN GUARDAR --" : "Guardado");
-                    newFile1 = new NewFileButton();
-                    loadFile1 = new LoadFileButton();
-                    if(!isFileEmpty(i)) {
-                        newFile1.setVisible(false);
-                    }else {
-                        loadFile1.setVisible(false);
-                    }
-                }
-                case 2 -> {
-                    file2Name = new NameLabel(isFileEmpty(i) ? "-- SIN GUARDAR --" : "Guardado");
-                    newFile2 = new NewFileButton();
-                    loadFile2 = new LoadFileButton();
-                    if(!isFileEmpty(i)) {
-                        newFile2.setVisible(false);
-                    }else {
-                        loadFile2.setVisible(false);
-                    }
-                }
-                case 3 -> {
-                    file3Name = new NameLabel(isFileEmpty(i) ? "-- SIN GUARDAR --" : "Guardado");
-                    newFile3 = new NewFileButton();
-                    loadFile3 = new LoadFileButton();
-                    if(!isFileEmpty(i)) {
-                        newFile3.setVisible(false);
-                    }else {
-                        loadFile3.setVisible(false);
-                    }
-                }
-                case 4 -> {
-                    file4Name = new NameLabel(isFileEmpty(i) ? "-- SIN GUARDAR --" : "Guardado");
-                    newFile4 = new NewFileButton();
-                    loadFile4 = new LoadFileButton();
-                    if(!isFileEmpty(i)) {
-                        newFile4.setVisible(false);
-                    }else {
-                        loadFile4.setVisible(false);
-                    }
-                }
-                case 5 -> {
-                    file5Name = new NameLabel(isFileEmpty(i) ? "-- SIN GUARDAR --" : "Guardado");
-                    newFile5 = new NewFileButton();
-                    loadFile5 = new LoadFileButton();
-                    if(!isFileEmpty(i)) {
+                slotLabel = (JLabel) getClass()
+                        .getDeclaredField("file" + i + "Name").get(this);
+                newFileButton = (JButton) getClass()
+                        .getDeclaredField("newFile" + i).get(this);
+                loadFileButton = (JButton) getClass()
+                        .getDeclaredField("loadFile" + i).get(this);
+                if (isFileEmpty(i)) {
 
-                        newFile5.setVisible(false);
-                    }else {
-                        loadFile5.setVisible(false);
-                    }
+                    slotLabel.setText("-- Vació --");
+                    slotLabel.setUI(new NameLabelUI());
+                    newFileButton.setVisible(true);
+                    loadFileButton.setVisible(false);
+                    continue;
+                } else {
+                    newFileButton.setVisible(false);
+                    loadFileButton.setVisible(true);
+                    player = Player.load(i);
+                }
+                if (player != null) {
+                    slotName = String.format("%s - NIVEL: %d",
+                            player.getName().toUpperCase(),
+                            player.getStats().get(Stats.LEVEL));
+                    slotLabel.setText(slotName);
+                    slotLabel.setUI(new NameLabelUI());
+                }
+            } catch (IllegalAccessException | NoSuchFieldException e) {
+
+                JOptionPane.showMessageDialog(null, "Error al cargar la partida " + i,
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+
+                slotLabel.setText("-- Vació --");
+                slotLabel.setUI(new NameLabelUI());
+                try {
+                    loadFileButton = (JButton) getClass()
+                            .getDeclaredField("loadFile" + i).get(this);
+                    loadFileButton.setVisible(false);
+                } catch (IllegalAccessException | NoSuchFieldException ex) {
+                    ex.printStackTrace();
                 }
             }
         }
     }
 
+    private void createUIComponents() {
+
+        mainPanel = new FilesPanel();
+        titleLabel = new JLabel("Java RPG");
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        file1Name = new NameLabel("");
+        newFile1 = new NewFileButton(1, this);
+        loadFile1 = new LoadFileButton(1, this);
+        file2Name = new NameLabel("");
+        newFile2 = new NewFileButton(2, this);
+        loadFile2 = new LoadFileButton(2, this);
+        file3Name = new NameLabel("");
+        newFile3 = new NewFileButton(3, this);
+        loadFile3 = new LoadFileButton(3, this);
+        file4Name = new NameLabel("");
+        newFile4 = new NewFileButton(4, this);
+        loadFile4 = new LoadFileButton(4, this);
+        file5Name = new NameLabel("");
+        newFile5 = new NewFileButton(5, this);
+        loadFile5 = new LoadFileButton(5, this);
+    }
+
     private boolean isFileEmpty(int slot) {
 
-        return !new File("files/file" + slot + ".dat").exists();
+        return !new File("files/save" + slot + ".dat").exists();
     }
 }

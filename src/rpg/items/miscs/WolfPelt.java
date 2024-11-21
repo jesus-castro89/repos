@@ -1,7 +1,9 @@
 package rpg.items.miscs;
 
 import rpg.enums.ItemType;
+import rpg.utils.cache.ImageCache;
 
+import javax.swing.*;
 import java.io.Serializable;
 
 /**
@@ -18,6 +20,8 @@ public class WolfPelt extends Misc implements Serializable {
         this.consumable = false;
         this.stackable = true;
         this.quantity = 1;
+        ImageCache.addImage("wolfPelt", "icons/items_misc.png");
+        this.iconName = "wolfPelt";
     }
 
     @Override

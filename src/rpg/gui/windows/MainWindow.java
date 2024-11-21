@@ -7,6 +7,7 @@ import rpg.enums.BarType;
 import rpg.enums.Stats;
 import rpg.gui.UIConstants;
 import rpg.gui.buttons.*;
+import rpg.gui.internalFrames.InventoryFrame;
 import rpg.gui.internalFrames.StatusFrame;
 import rpg.gui.labels.*;
 import rpg.gui.panels.BottomPanel;
@@ -45,23 +46,30 @@ public class MainWindow extends JFrame {
     private JPanel messagePanel;
     private JPanel enemyPanel;
     private JDesktopPane desktopPane;
-    private final JInternalFrame internalFrame;
+    private final JInternalFrame statusFrame;
+    private final JInternalFrame inventoryFrame;
     Player player;
     Enemy enemy;
+    int slot;
 
-    public static void main(String[] args) {
-        new MainWindow();
-    }
+    public MainWindow(Player player, int slot) {
 
-    public MainWindow() {
-
+        this.player = player;
+        this.slot = slot;
         initComponents();
-        player = new Player("Miguel");
         ((BarLabel) lifeLabel).updateBar(player.getStats().get(Stats.HP), player.getStats().get(Stats.MAX_HP));
         ((BarLabel) magicLabel).updateBar(player.getStats().get(Stats.MP), player.getStats().get(Stats.MAX_MP));
         ((BarLabel) expLabel).updateBar(player.getStats().get(Stats.EXPERIENCE), player.getStats().get(Stats.NEEDED_EXPERIENCE));
-        internalFrame = new StatusFrame();
-        desktopPane.add(internalFrame, JLayeredPane.PALETTE_LAYER);
+        statusFrame = new StatusFrame(this);
+        inventoryFrame = new InventoryFrame(this);
+        desktopPane.add(statusFrame, JLayeredPane.PALETTE_LAYER);
+        desktopPane.add(inventoryFrame, JLayeredPane.PALETTE_LAYER);
+        // Colocamos los InternalFrames en la posición deseada
+        statusFrame.setLocation((desktopPane.getWidth() - statusFrame.getWidth()) / 2,
+                (desktopPane.getHeight() - statusFrame.getHeight()) / 2);
+        inventoryFrame.setLocation((desktopPane.getWidth() - inventoryFrame.getWidth()) / 2,
+                (desktopPane.getHeight() - inventoryFrame.getHeight()) / 2);
+        // Añadimos un mensaje al textDisplay de bienvenida
         appendText("¡Bienvenido a RPG Game!\n");
         appendText("¡Prepárate para la aventura!\n");
         appendText("Aparece un nuevo enemigo: " + enemy.getName() + "\n");
@@ -110,6 +118,7 @@ public class MainWindow extends JFrame {
         textDisplay.setEditable(false);
         textDisplay.setLineWrap(true);
         textDisplay.setWrapStyleWord(true);
+        goldLabel.setText(player.getStats().get(Stats.GOLD) + "G");
     }
 
     /**
@@ -182,6 +191,8 @@ public class MainWindow extends JFrame {
             // Asignamos la nueva experiencia y oro al jugador
             player.getStats().put(Stats.EXPERIENCE, totalExp);
             player.getStats().put(Stats.GOLD, totalGold);
+            goldLabel.setText(totalGold + "G");
+            goldLabel.repaint();
             // Evaluamos si el jugador ha subido de nivel
             if (totalExp >= promotionExp)
                 updatePlayer();
@@ -253,18 +264,19 @@ public class MainWindow extends JFrame {
         bottomPanel = new BottomPanel();
         blacksmithButton = new BlacksmithButton();
         shopButton = new ShopButton();
-        inventoryButton = new InventoryButton();
+        inventoryButton = new InventoryButton(this);
         exitButton = new ExitButton();
-        saveButton = new SaveButton();
+        saveButton = new SaveButton(this, player, slot);
         atacarButton = new AttackButton(this);
         habilidadesButton = new SkillPanelButton();
         huirButton = new FleeButton(this);
-        exampleLabel = new PortraitLabel();
+        exampleLabel = new PortraitLabel(this);
         lifeLabel = new BarLabel(0, 0, BarType.LIFE);
         magicLabel = new BarLabel(0, 0, BarType.MAGIC);
         expLabel = new BarLabel(0, 0, BarType.EXPERIENCE);
-        goldLabel = new GoldLabel();
-        nameLabel = new NameLabel("Miguel LVL. 1");
+        goldLabel = new GoldLabel(player.getStats().get(Stats.GOLD));
+        nameLabel = new NameLabel(String.format("%s LVL. %d", player.getName(),
+                player.getStats().get(Stats.LEVEL)));
         playerSprite = new PlayerSpriteLabel();
         enemyNameLabel = new NameLabel(enemy.getName());
         enemyLifeLabel = new BarLabel(enemy.getStats().get(Stats.HP),
@@ -278,5 +290,13 @@ public class MainWindow extends JFrame {
 
     public Enemy getEnemy() {
         return enemy;
+    }
+
+    public JInternalFrame getInventoryFrame() {
+        return inventoryFrame;
+    }
+
+    public JInternalFrame getStatusFrame() {
+        return statusFrame;
     }
 }

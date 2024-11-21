@@ -1,6 +1,7 @@
 package rpg.items.armors.helmet;
 
 import rpg.enums.Stats;
+import rpg.enums.WearType;
 
 /**
  * The type Iron helmet.
@@ -13,6 +14,7 @@ public class IronHelmet extends WoodHelmet {
     public IronHelmet() {
 
         super();
+        this.wearType = WearType.HEAD;
         this.name = "Iron Helmet";
         this.description = "Un casco de hierro. No es muy resistente, pero tiene una dureza superior a la madera.";
         this.stats.put(Stats.DEFENSE, 5);

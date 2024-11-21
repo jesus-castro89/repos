@@ -1,10 +1,13 @@
 package rpg.entities;
 
 import rpg.enums.Stats;
+import rpg.enums.WearType;
 import rpg.exceptions.ItemNotFoundException;
 import rpg.inventory.Inventory;
+import rpg.items.Equipment;
 import rpg.items.Item;
 import rpg.items.miscs.Misc;
+import rpg.items.weapons.Weapon;
 import rpg.utils.Randomize;
 
 import javax.swing.*;
@@ -17,6 +20,7 @@ import java.util.HashMap;
 public class Player extends GameCharacter implements Serializable {
 
     private final Inventory inventory;
+    private HashMap<WearType, Equipment> equipment;
 
     /**
      * Instantiates a new Player.
@@ -27,6 +31,32 @@ public class Player extends GameCharacter implements Serializable {
 
         super(name);
         inventory = new Inventory();
+    }
+
+    public void save(int slot) {
+
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("files/save" + slot + ".dat"));
+            out.writeObject(this);
+            out.close();
+            System.out.println("Game saved");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error saving the game");
+        }
+    }
+
+    public static Player load(int slot) {
+
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream
+                    ("files/save" + slot + ".dat"));
+            Player player = (Player) in.readObject();
+            in.close();
+            return player;
+        } catch (IOException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Error loading the game");
+        }
+        return null;
     }
 
     public boolean tryToFlee() {
@@ -64,6 +94,13 @@ public class Player extends GameCharacter implements Serializable {
         stats.put(Stats.EXPERIENCE, 0);
         stats.put(Stats.NEEDED_EXPERIENCE, 100);
         stats.put(Stats.GOLD, 0);
+        equipment= new HashMap<>();
+        equipment.put(WearType.HEAD, null);
+        equipment.put(WearType.CHEST, null);
+        equipment.put(WearType.LEGS, null);
+        equipment.put(WearType.FEET, null);
+        equipment.put(WearType.HANDS, null);
+        equipment.put(WearType.WEAPON, null);
     }
 
     public void addItemToInventory(Item item) {

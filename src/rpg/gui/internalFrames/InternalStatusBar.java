@@ -36,8 +36,8 @@ public class InternalStatusBar extends JPanel {
     }
 
     public void updateWidth(int width) {
-        mainPanel.setSize(width, 77);
-        setSize(width, 77);
+        mainPanel.setSize(width, UIConstants.INTERNAL_FRAME_HEADER_HEIGHT);
+        setSize(width, UIConstants.INTERNAL_FRAME_HEADER_HEIGHT);
         ((CenterPanel) centerCornerPanel).setDimension(new Dimension(width - 100, 77));
     }
 

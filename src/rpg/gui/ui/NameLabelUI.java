@@ -47,6 +47,7 @@ public class NameLabelUI extends GameLabelUI {
         int textY = paintTextR.y;
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2d.drawImage(icons[0], 0, 0, icons[0].getWidth(), icons[0].getHeight(), c);
         g2d.translate(icons[0].getWidth(), 0);
         g2d.drawImage(icons[1], 0, 0, stringWidth, icons[1].getHeight(), c);

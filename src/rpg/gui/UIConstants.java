@@ -31,6 +31,9 @@ public interface UIConstants {
     /**
      * Margen simple.
      */
+    int INTERNAL_FRAME_HEADER_HEIGHT = 77;
+    int STATUS_FRAME_WIDTH = 565;
+    int STATUS_FRAME_HEIGHT = 715;
     int SIMPLE_MARGIN = 18;
     int CORNER_WIDTH = 52;
     int CORNER_HEIGHT = 77;
@@ -58,6 +61,7 @@ public interface UIConstants {
      */
     Dimension BAR_LABEL = new Dimension(172, 51);
     Dimension MESSAGE_DIMENSION = new Dimension(1100, 287);
+    Dimension NEW_PLAYER_PANEL_DIMENSION = new Dimension(786, 250);
     /**
      * Borde vacío de margen simple. Que se puede usar para dar un margen a los paneles.
      */

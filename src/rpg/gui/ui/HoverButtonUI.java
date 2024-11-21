@@ -78,6 +78,7 @@ public class HoverButtonUI extends BasicButtonUI {
         Graphics2D g2d = (Graphics2D) g;
         AbstractButton button = (AbstractButton) c;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         ImageIcon[] images = button.getModel().isRollover() ? partsHover : parts;
         drawButtonParts(g2d, images);
         g2d.translate(-width - 27, 0);
