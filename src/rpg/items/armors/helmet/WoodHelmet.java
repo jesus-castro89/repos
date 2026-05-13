@@ -22,7 +22,7 @@ public class WoodHelmet extends Armor {
         price = 10;
         stats = new HashMap<>();
         stats.put(Stats.DEFENSE, 2);
-        ImageCache.addImage("woodHelmet", "icons/items_helmet.png");
+        ImageCache.addImage("woodHelmet", "items/leather_glove.png");
         iconName = "woodHelmet";
     }
 

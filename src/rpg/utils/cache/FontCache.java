@@ -15,7 +15,7 @@ public class FontCache {
     public static final Map<String, Font> cache = new HashMap<>();
 
     /**
-     * Método que se encarga de añadir una fuente a la caché.
+     * Función que se encarga de añadir una fuente a la caché.
      *
      * @param fontName Nombre de la fuente.
      * @param fontPath Ruta de la fuente.
